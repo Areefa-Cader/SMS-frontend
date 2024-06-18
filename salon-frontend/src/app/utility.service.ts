@@ -1,0 +1,36 @@
+import { Injectable } from '@angular/core';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class UtilityService {
+  convertSecondsToHHMMSS(totalDurationSeconds: any): string {
+    throw new Error('Method not implemented.');
+  }
+
+  constructor() { }
+
+  // Function to convert time to minutes format
+  convertTimeToReadableFormat(time: string): string {
+    const [hours, minutes, seconds] = time.split(':').map(Number);
+    let readableFormat = '';
+
+    if (hours > 0) {
+      readableFormat += `${hours} h `;
+    }
+    if (minutes > 0) {
+      readableFormat += `${minutes} min`;
+    }
+    if (readableFormat === '') {
+      readableFormat = `${seconds} sec`; // In case duration is only in seconds
+    }
+    
+    return readableFormat.trim();
+  }
+
+   // Function to convert "HH:MM:SS" to total seconds
+   convertDurationToSeconds(duration: string): number {
+    const [hours, minutes, seconds] = duration.split(':').map(Number);
+    return hours * 3600 + minutes * 60 + seconds;
+  }
+}

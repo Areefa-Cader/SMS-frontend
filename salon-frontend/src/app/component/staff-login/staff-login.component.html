@@ -1,0 +1,59 @@
+<!-- Navigation Bar -->
+
+<mat-toolbar style="height: 55px; background: none;">
+    <img src="assets/logo.png" alt="logo" class="logo">
+    <span class="company-name">Rinosha's Bridal</span>
+    <span class="example-spacer"></span>
+    <button mat-button style="color: #492E26;" routerLink="/" >
+      Home
+    </button>
+    <button mat-icon-button class="example-icon" >
+      <mat-icon>notifications</mat-icon>
+    </button>
+  </mat-toolbar>
+
+<!-- login area -->
+<div class="main-outer">
+    <mat-card>
+        <mat-card-header>
+            <h2>LOGIN</h2>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="form-container">
+              <form>
+                    <mat-form-field>
+                      <mat-label>Username</mat-label>
+                      <input matInput placeholder="Username" name="username"  required>
+                      <!-- <mat-error *ngIf="!username">
+                        Username is required
+                      </mat-error> -->
+                    </mat-form-field>
+    
+                    <mat-form-field>
+                      <mat-label>Password</mat-label>
+                      <input matInput  placeholder="Password" name="password"  required>
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                      <!-- <mat-error *ngIf="!password">
+                        Password is required
+                      </mat-error> -->
+                    </mat-form-field>
+    
+                    <div class="forgot-password" style=" text-align: center;">
+                     <a mat-button  style="color:#492E26;">Forgot Password</a>
+                    </div>
+                    <div class="button-area">
+                        <button mat-fab extended color="primary"  class="login-button">
+                            Login
+                          </button> &nbsp;&nbsp;
+                          <button mat-fab extended color="primary"  class="login-button" routerLink="/staff-register">
+                            Register
+                          </button> 
+                    </div> 
+                  </form>    
+                    </div>
+        </mat-card-content>
+    </mat-card>
+    </div>
+    

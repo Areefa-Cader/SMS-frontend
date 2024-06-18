@@ -1,0 +1,41 @@
+
+<mat-sidenav-container>
+    <mat-sidenav opened mode="side" [style.width]="sidenavwidth()">
+      <app-sidenav-left [collapsed]="collapsed()" ></app-sidenav-left>
+    </mat-sidenav>
+  
+    <mat-sidenav-content class="content"[style.margin-left]="sidenavwidth()">
+      <!-- toolbar -->
+      <mat-toolbar class='mat-elevation-z3'>
+        <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="collapsed.set(!collapsed())">
+        <mat-icon>menu</mat-icon>
+        </button>
+        <h3>Staff Management</h3>
+        <span class="example-spacer"></span>
+        <button  mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
+          <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+        </button>
+        &nbsp;
+        <img class="user-icon" mat-elevation-z8 src="assets/profile.png">&nbsp;
+        <p class="user-role">Admin</p>
+      
+      </mat-toolbar>
+  
+      <br>
+      <mat-toolbar class="button">
+        <span class="example-spacer"></span>
+        <button mat-raised-button class="add-button" (click)="openAddStaff()">Add Staff</button>
+      </mat-toolbar> <br>
+      <mat-card>
+        <mat-card-content>
+
+          
+          <!-- staff list -->
+          <app-staff-list>
+
+          </app-staff-list>
+
+        </mat-card-content>
+      </mat-card>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

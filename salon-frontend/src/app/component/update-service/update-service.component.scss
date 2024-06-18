@@ -1,0 +1,27 @@
+.mat-mdc-form-field {
+    margin-top: 16px;
+  }
+.content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  mat-card{
+    margin-top: 1.5%;
+  }
+
+.row{
+    gap: 10px;
+    display: flex;
+
+    mat-form-field{
+     width: 100%;
+    }
+   
+}
+ //button area
+
+ .button-area{
+    display: flex;
+    justify-content: flex-end;
+ }
