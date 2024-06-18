@@ -1,31 +1,14 @@
-import { Component, OnInit, computed, signal } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { Component, computed, signal } from '@angular/core';
 
 @Component({
   selector: 'app-invoice',
   templateUrl: './invoice.component.html',
   styleUrls: ['./invoice.component.scss']
 })
-export class InvoiceComponent implements OnInit{
- 
-
-
+export class InvoiceComponent {
 
   collapsed = signal(true);
   sidenavwidth = computed(()=>this.collapsed() ? '65px':'200px');
-
-  constructor(private dialog:MatDialog ){
-
-  }
-
-  ngOnInit(): void {
-   
-  }
-
-
-
-  newInvoiceForm(){
-    this.dialog.open(addinvoice)
-  }
+  
 
 }
