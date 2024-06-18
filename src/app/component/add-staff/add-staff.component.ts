@@ -1,0 +1,65 @@
+import { Component, OnInit } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { MatDialogRef } from '@angular/material/dialog';
+
+@Component({
+  selector: 'app-add-staff',
+  templateUrl: './add-staff.component.html',
+  styleUrls: ['./add-staff.component.scss']
+})
+export class AddStaffComponent implements OnInit{
+  hide= true;
+
+  role : any[]=[
+    "Hair Artist",
+    "Skin Care Artist",
+    "Bridal Dresser"
+  ]
+
+  constructor(private httpClient:HttpClient, private dialogRef:MatDialogRef<AddStaffComponent>){
+
+  }
+
+  submit = new FormGroup({
+    fullname:new FormControl('',Validators.required ),
+    email:new FormControl('',Validators.required ),
+    contact_no:new FormControl('',Validators.required ),
+    dob:new FormControl('',Validators.required ),
+    role:new FormControl([],Validators.required ),
+    username:new FormControl('',Validators.required ),
+    password:new FormControl('',Validators.required )
+})
+
+
+
+  ngOnInit(): void {
+    this.getAllStaff();
+  }
+
+
+  getAllStaff(){
+    this.httpClient.get('http://127.0.0.1:8000/api/getStaff').subscribe((res)=>{
+      console.log(res);
+    })
+  }
+
+  onSubmitData(){
+    if(this.submit.valid){
+      this.httpClient.post('http://127.0.0.1:8000/api/addStaff', this.submit.value).subscribe((res)=>{
+        console.log(res);
+        alert('Successfully Added');
+        this.dialogRef.close();
+        this.getAllStaff();
+      })
+    }
+    console.log(this.submit.value);
+  }
+
+
+
+  closeDialog(){
+
+  }
+
+}

@@ -1,0 +1,215 @@
+.mat-stepper-horizontal {
+    margin-top: 4px;
+  }
+  
+  .mat-mdc-form-field {
+    margin-top: 16px;
+  }
+
+  .body-content{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+  }
+  mat-card{
+    margin-top: 1.5%;
+    border: none;
+  }
+
+  ::ng-deep .mat-step-icon {
+    background-color:#ED9BA5;
+    color: white; // if you need to change the icon color as well
+  } 
+
+  .row{
+    gap: 10px;
+    display: flex;
+
+    mat-form-field{
+        width: 100%;
+    }
+   
+}
+
+mat-optgroup{
+  font-weight: 800;
+}
+
+// stepper 3 => staffs
+
+.card-container{
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+
+  mat-card{
+    flex: 0 1 calc(33.33% - 10px);
+    margin: 5px;
+  }
+
+  mat-card-title{
+    font-size: 14px;
+    padding-left: 5px;
+  }
+}
+
+//employee card
+
+.staff-container {
+  flex-wrap: wrap;
+  gap: 10px; /* Adjust the gap between cards as needed */
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+ 
+}
+
+.employee-card {
+  display: flex; 
+  flex-direction:row;
+  width: 220px;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  justify-content: center;
+  height: 100px;
+}
+
+.employee-card img {
+  width: 30px;  /* Adjust as needed */
+  height: 30px; /* Adjust as needed */
+  border-radius: 50%;
+  margin: 0 auto;
+}
+
+.employee-info {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.name {
+  margin: 0px 0 2px;
+  font-size: 1em;  /* Adjust font size */
+}
+
+.text {
+  margin: 0;
+  font-size: 0.9em;  /* Adjust font size */
+}
+
+// .status {
+//   display: inline-block;
+//   margin-top: 10px;
+//   padding: 5px 10px;
+//   border-radius: 12px;
+//   color: white;
+//   font-size: 0.8em;  /* Adjust font size */
+// }
+
+// .status.active {
+//   background-color: green;
+// }
+
+// .status.inactive {
+//   background-color: red;
+// }
+
+.next-icon{
+  display: flex;
+  align-items:flex-end;
+  justify-content: right;
+  margin-top: 10%;
+  font-size: 50px;
+}
+
+button.select-staff {
+  margin-top: 10px;
+  font-size: 0.8em;  /* Adjust font size */
+  background-color: #ED9BA5;
+}
+button.selected-button {
+  background-color: rgb(76, 144, 76);
+}
+
+button:disabled {
+  background-color: gray;
+  cursor: not-allowed;
+}
+
+.confirmation-box{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px; 
+  
+   mat-card{
+    display: flex;
+    justify-content:center;
+    width: 75%;
+
+       p{
+        margin-left: 8px;
+       }
+   }
+}
+
+.service-details{
+  display: flex;
+  align-items: flex-start;
+  width: 300px;
+  justify-content:center;
+  padding-left: 20px;
+}
+
+.title{
+  font-size: 0.8;
+  font-weight: bold;
+}
+.booking-details p{
+  padding-left: 5px;
+}
+// mat-divider{
+//   margin-top: 10px;
+// }
+
+.button-area{
+  display:flex;
+  justify-content:flex-end;
+ 
+  margin-bottom: 15px;
+}
+
+//confirmation
+
+.service-item{
+  padding: 8px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.service-title{
+  display: flex;
+  justify-content:space-between;
+  align-items: center;
+  
+}
+.close-icon{
+  font-size: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.confirmation-content{
+
+  gap: 18px; /* Adjust the gap between cards as needed */
+  display: grid;
+  align-items: center;
+  justify-content: center;
+  grid-template-columns: repeat(2, 1fr);
+  width: 90%;
+  margin-top: -5%;
+  margin-left: 10%;
+}

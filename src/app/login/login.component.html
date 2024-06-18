@@ -1,0 +1,61 @@
+<!-- Navigation Bar -->
+
+<mat-toolbar style="height: 55px; background: none;">
+  <img src="assets/logo.png" alt="logo" class="logo">
+  <span class="company-name">Rinosha's Bridal</span>
+  <span class="example-spacer"></span>
+  <button mat-icon-button class="example-icon" >
+    <mat-icon>notifications</mat-icon>
+  </button>
+  <button mat-icon-button class="example-icon" >
+    <mat-icon>person</mat-icon>
+  </button>
+  <button mat-raised-button style="background-color:#ED9BA5 ; border-radius: 20px; color: white;" routerLink="/staff-login">
+    Staff Login
+  </button>
+</mat-toolbar>
+
+<!-- <app-header2></app-header2> -->
+
+<!-- ----------- -->
+
+<div class="main-outer">
+<mat-card>
+    <mat-card-header>
+        <h2>LOGIN</h2>
+    </mat-card-header>
+    <mat-card-content>
+        <div class="form-container">
+          <form (ngSubmit)="login()">
+                <mat-form-field>
+                  <mat-label>Username</mat-label>
+                  <input matInput placeholder="Username" name="username" [(ngModel)]="username" required>
+                  <mat-error *ngIf="!username">
+                    Username is required
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field>
+                  <mat-label>Password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" placeholder="Password" name="password" [(ngModel)]="password" required>
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <mat-error *ngIf="!password">
+                    Password is required
+                  </mat-error>
+                </mat-form-field>
+
+                <div class="forgot-password" style=" text-align: center;">
+                 <a mat-button  style="color:#492E26;">Forgot Password</a>
+                </div>
+                <div class="button-area">
+                    <button mat-fab extended color="primary" [disabled]="!username || !password" class="login-button">
+                        Login
+                      </button> &nbsp;&nbsp;
+                </div> 
+              </form>    
+                </div>
+    </mat-card-content>
+</mat-card>
+</div>

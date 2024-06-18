@@ -1,0 +1,103 @@
+<div class="container">
+    <mat-card>
+        <mat-card-header>
+            <h2>REGISTER</h2>
+        </mat-card-header>
+        <mat-card-content class="content">
+            <form #registrationForm="ngForm" [formGroup]="register" (ngSubmit)="staffRegister()">
+                <div class="column">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Fullname</mat-label>
+                  <input matInput name="fullname" formControlName="fullname" required>
+                  <!-- <mat-error *ngIf="!fullname">
+                    fullname is required
+                  </mat-error> -->
+                </mat-form-field> &nbsp;
+    
+                <mat-form-field class="example-full-width">
+                    <mat-label>Email</mat-label>
+                    <input matInput type="email" name="email" formControlName="email" required>
+                    <!-- <mat-error *ngIf="!email">
+                      Email is required
+                    </mat-error> -->
+                  </mat-form-field> &nbsp;
+                </div>
+                
+                <div class="column">
+
+                <mat-form-field class="example-full-width">
+                    <mat-label>Contact No</mat-label>
+                    <input matInput name="contact_no" formControlName="contact_no" required>
+                    <!-- <mat-error *ngIf="!mobile">
+                      Mobile is required
+                    </mat-error> -->
+                </mat-form-field> &nbsp;
+                   
+                <mat-form-field>
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="picker"  name="dob" formControlName="dob" required>
+                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>&nbsp;
+                </div>
+
+                <div class="column">
+                    
+
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Role</mat-label>
+                        <mat-select name="role" formControlName="role" required >
+                            <mat-option *ngFor="let val of role" [value]="val" >{{val}}</mat-option>
+                        </mat-select>
+                        <!-- <mat-error *ngIf="!role">
+                          Role is required
+                        </mat-error> -->
+                      </mat-form-field>
+                  </div>
+
+
+                <div class="column">
+    
+                <mat-form-field class="example-full-width">
+                    <mat-label>Username</mat-label>
+                    <input matInput name="username" formControlName="username" required>
+                    <!-- <mat-error *ngIf="!username">
+                      Username is required
+                    </mat-error> -->
+                  </mat-form-field>&nbsp;
+    
+                <mat-form-field class="example-full-width">
+                  <mat-label>Password</mat-label>
+                  <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" required>
+                  <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+                  <!-- <mat-error *ngIf="!password">
+                    Password is required
+                  </mat-error> -->
+                </mat-form-field> 
+    
+              </div>
+    
+                  <div class="example-button-row">
+                    <button mat-fab extended color="primary" [disabled]="registrationForm.invalid" style="background-color: #ED9BA5; width:50%;font-size: 17px;">
+                      Register
+                    </button>
+                  </div>
+                     <br>
+                    <div class="example-button-row">
+                    <p>Already have an Account
+                      <a mat-button routerLink="/staff-login" style="color:#CBA18D ;">LOGIN</a>
+                    </p>
+                  </div>  
+    
+            </form>    
+        </mat-card-content>
+        <!-- <mat-card-footer>
+          <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+        </mat-card-footer> -->
+    </mat-card>
+    </div>
+
+  
