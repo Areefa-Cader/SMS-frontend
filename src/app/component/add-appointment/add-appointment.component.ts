@@ -190,11 +190,12 @@ export class AddAppointmentComponent implements OnInit {
         service_id:serviceIds,
         staff_id:this.selectedStaff.id,
         date: this.selectedDate?.toISOString().split('T')[0],
-        time:this.selectedTimes
+        time:this.selectedTimes,
+        price:this.secondFormGroup.value.price
       };
       console.log(appointmentData);
       
-      this.httpClient.post('http://127.0.0.1:8000/api/addAppointment',appointmentData).subscribe((res:any)=>{
+      this.httpClient.post('http://127.0.0.1:8000/api/appointmentWithInvoice',appointmentData).subscribe((res:any)=>{
        console.log(res);
        alert(res.message);
         this.router.navigate(["/appointment"]);

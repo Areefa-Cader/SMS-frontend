@@ -34,6 +34,7 @@ import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
 import {AsyncPipe} from '@angular/common';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
+import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
 @NgModule({
 
@@ -66,6 +67,7 @@ import {LiveAnnouncer} from '@angular/cdk/a11y';
         MatDividerModule,
         MatRadioModule,
         MatAutocompleteModule,
+        MatSlideToggleModule
         
     ]
 
