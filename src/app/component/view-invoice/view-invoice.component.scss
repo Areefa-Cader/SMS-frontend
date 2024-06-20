@@ -1,0 +1,71 @@
+.title{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.mat-mdc-form-field {
+    margin-top: 10px;
+    margin-left: 15px;
+  }
+
+  table {
+    width: 80%;
+  
+  
+  .mat-mdc-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+
+  th{
+    background-color: #ED9BA5;
+  }
+
+  }
+  .serviceCount{
+    
+  }
+  .search{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    border-radius: 25px;
+    height: 20px;
+    padding: 10px;
+    width: 26%;
+    border: 2px solid #ED9BA5;
+    right: 0;
+    margin-left:400px;
+  }
+
+ .row1{
+  display: flex;
+  justify-content: flex-end;
+ }
+
+  .box {
+    border: 1px solid #e0e0e0;
+    padding: 16px;
+    max-width: 300px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 8px;
+  }
+  
+  .field {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+  }
+  
+  .label {
+    font-weight: bold;
+  }
+  
+  .value {
+    color: #757575;
+  }

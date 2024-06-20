@@ -4,39 +4,29 @@
             Create Invoice
         </mat-card-title>
         <mat-card-content>
-            <form>
-                <mat-form-field appearance="outline">
-                    <mat-label>Customer Mobile No</mat-label>
-                    <input matInput formControlName="customer_number">
-                    <!-- <mat-hint></mat-hint> -->
-                </mat-form-field>
-               
-                <mat-form-field appearance="outline">
-                    <mat-label>Customer Name</mat-label>
-                    <input matInput formControlName="customer_name">
-                    <!-- <mat-hint></mat-hint> -->
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
-                    <mat-label>Invoice Date</mat-label>
-                    <input matInput formControlName="Invoice_date">
-                    <!-- <mat-hint></mat-hint> -->
-                </mat-form-field>
-    
-                <mat-form-field appearance="outline">
-                    <mat-label>Payment due date</mat-label>
-                    <input matInput formControlName="payment due">
-                    <!-- <mat-hint></mat-hint> -->
-                </mat-form-field>
-    
-            </form>
+            
             <mat-divider></mat-divider>
+
+            <!-- //row1// -->
+
+            <div class="row1">
+              <div class="box">
+                <div class="title">Invoice</div>
+                <div class="field">
+                  <span class="label">Invoice Number:</span>
+                  <span class="value">#001</span>
+                </div>
+                <mat-divider></mat-divider>
+                <div class="field">
+                  <span class="label">Due Date:</span>
+                  <span class="value">8/13/2024</span>
+                </div> 
+              </div>
+             </div>
+
+             <mat-divider></mat-divider>
                 
-            <mat-form-field appearance="outline" class="serviceCount">
-                <mat-label>No.of Services</mat-label>
-                <input matInput formControlName="serviceCount">
-                <!-- <mat-hint></mat-hint> -->
-            </mat-form-field>
+           
                  
                 <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input class="search">
              
@@ -75,6 +65,11 @@
                   <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
                 </tr>
               </table>
+
+              <mat-divider></mat-divider>
+              <div class="totalAmount">
+
+              </div>
         </mat-card-content>
     </mat-card>
 </div>

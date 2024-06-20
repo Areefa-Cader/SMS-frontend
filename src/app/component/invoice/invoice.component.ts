@@ -1,6 +1,5 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { AddInvoiceComponent } from '../add-invoice/add-invoice.component';
 
 @Component({
   selector: 'app-invoice',
@@ -22,6 +21,6 @@ export class InvoiceComponent implements OnInit{
   }
 
   addInvoiceForm(){
-    this.dialog.open(AddInvoiceComponent);
+  
   }
 }

@@ -45,7 +45,7 @@ import { AppointmentSlotsComponent } from './component/appointment-slots/appoint
 import { UpdateAppointmentComponent } from './component/update-appointment/update-appointment.component';
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { InvoiceListComponent } from './component/invoice-list/invoice-list.component';
-import { AddInvoiceComponent } from './component/add-invoice/add-invoice.component';
+import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.component';
 
 
 
@@ -85,7 +85,7 @@ import { AddInvoiceComponent } from './component/add-invoice/add-invoice.compone
     UpdateAppointmentComponent,
     InvoiceComponent,
     InvoiceListComponent,
-    AddInvoiceComponent,
+    ViewInvoiceComponent,
     
     
    
