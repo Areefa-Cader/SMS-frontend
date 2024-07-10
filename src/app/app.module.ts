@@ -46,6 +46,7 @@ import { UpdateAppointmentComponent } from './component/update-appointment/updat
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { InvoiceListComponent } from './component/invoice-list/invoice-list.component';
 import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.component';
+import { ReportComponent } from './component/report/report.component';
 
 
 
@@ -86,6 +87,7 @@ import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.comp
     InvoiceComponent,
     InvoiceListComponent,
     ViewInvoiceComponent,
+    ReportComponent,
     
     
    

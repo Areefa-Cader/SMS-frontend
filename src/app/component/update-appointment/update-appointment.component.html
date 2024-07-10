@@ -1,18 +1,168 @@
-<div class="container">
-<mat-card>
-    <mat-card-title>Update Appointment</mat-card-title>
+<div class="body-content">
+  <mat-card>
+    <mat-card-title style="justify-content: center; display: flex; margin-top: 5px;">
+      UPDATE APPOINTMENT
+    </mat-card-title>
     <mat-card-content>
-        <div class="row">
-            <mat-form-field appearance="outline">
-              <mat-label>Customer Name</mat-label>
-              <input matInput formControlName="fullname">
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Staff Name</mat-label>
-                <input matInput formControlName="email">
+      <mat-stepper linear #stepper>
+        <mat-step [stepControl]="firstFormGroup">
+          <form [formGroup]="firstFormGroup">
+            <ng-template matStepLabel>Customer</ng-template>
+            <br>
+            <p>Note: if it is not a new customer then type your Contact details and PRESS ENTER button</p>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Mobile</mat-label>
+                <input matInput formControlName="contact_no" (keyup.enter)="addCustomerDetails()">
               </mat-form-field>
-        </div>
-    </mat-card-content>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Fullname</mat-label>
+                <input matInput formControlName="fullname">
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput type="email" formControlName="email">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Gender</mat-label>
+                <mat-select formControlName="gender">
+                  <mat-option *ngFor="let val of gender" [value]="val">{{val}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Address</mat-label>
+                <input matInput formControlName="address">
+              </mat-form-field>
+            </div>
+            <div>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+        <mat-step [stepControl]="secondFormGroup">
+          <form [formGroup]="secondFormGroup">
+            <ng-template matStepLabel>Service</ng-template>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Service</mat-label>
+                <mat-select formControlName="service" multiple>
+                  <mat-optgroup *ngFor="let group of serviceGroup" [label]="group.name">
+                    <mat-option *ngFor="let service of group.service" [value]="service.value">
+                      {{ service.viewValue }}
+                    </mat-option>
+                  </mat-optgroup>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Duration</mat-label>
+                <input matInput formControlName="duration" readonly>
+              </mat-form-field>
+              <mat-form-field appearance="outline">
+                <mat-label>Price</mat-label>
+                <input matInput formControlName="price" readonly>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Choose a date </mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="date" (dateChange)="openTimePicker($event)">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+              <!-- <div *ngIf="selectedDate"> -->
+                <mat-form-field appearance="outline">
+                  <mat-label>Choose Time</mat-label>
+                  <mat-select (selectionChange)="updateTime($event)" formControlName="time">
+                    <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time }}</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              <!-- </div> -->
+            </div>
+            <div>
+              <button mat-button matStepperPrevious>Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
 
-</mat-card>
+        <mat-step>
+          <ng-template matStepLabel>Staffs</ng-template>
+          <p>Choose your Staff</p>
+          <div class="staff-container">
+            <mat-card class="employee-card" *ngFor="let staff of staffList" [class.selected]="isSelected(staff)">
+              <div class="img">
+                <img mat-card-avatar src="assets/profile.png" alt="{{staff.fullname}}">
+              </div>
+              <mat-card-content>
+                <div class="employee-info">
+                  <h3 mat-line class="name">{{staff.fullname}}</h3>
+                  <p class="text" mat-line>{{staff.role}}</p>
+                </div>
+              </mat-card-content>
+              <br>
+              <button mat-button color="#ED9BA5" class="select-staff" (click)="selectStaff(staff)"
+                [ngClass]="{'selected-button': isSelected(staff)}">Accept</button>
+            </mat-card>
+          </div>
+          <br>
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button matStepperNext>Next</button>
+          </div>
+        </mat-step>
+
+        <mat-step>
+          <ng-template matStepLabel>Confirmation</ng-template>
+          <div class="confirmation-box">
+            <h2 style="color: #ED9BA5;">BOOKING CONFIRMATION</h2>
+            <div class="confirmation-content">
+              <mat-card>
+                <p class="title">Booking Date:</p>
+                <p>{{secondFormGroup.get('date')?.value | date:'fullDate'}}</p>
+              </mat-card>
+              <mat-card>
+                <p class="title">Booking Time:</p>
+                <p> At {{secondFormGroup.get('time')?.value}}</p>
+              </mat-card>
+              <mat-card>
+                <p class="title">Customer Details:</p>
+                <p>{{firstFormGroup.get('fullname')?.value}}</p>
+                <p>{{firstFormGroup.get('contact_no')?.value}}</p>
+              </mat-card>
+              <mat-card>
+                <p class="title">Staff Details:</p>
+                <p>{{selectedStaff?.fullname}}</p>
+                <p>{{selectedStaff?.contact_no}}</p>
+              </mat-card>
+              <mat-card>
+                <p class="title">Services Booked:</p>
+                <li *ngFor="let serviceItem of service" style="padding-top:5px; padding-left: 9px;">
+                  {{serviceItem}}
+                </li>
+              </mat-card>
+              <mat-card>
+                <p class="title">Services Duration & Amount:</p>
+                <p>Approx.{{secondFormGroup.get('duration')?.value}} </p>
+                <p>Rs.{{secondFormGroup.get('price')?.value}}</p>
+              </mat-card>
+            </div>
+            <div class="button-area">
+              <button mat-raised-button style="background-color: #ED9BA5;" (click)="onUpdate()">Update</button>
+            </div>
+          </div>
+
+          <div>
+            <button mat-button matStepperPrevious>Back</button>
+            <button mat-button (click)="stepper.reset()">Reset</button>
+          </div>
+        </mat-step>
+      </mat-stepper>
+    </mat-card-content>
+  </mat-card>
 </div>

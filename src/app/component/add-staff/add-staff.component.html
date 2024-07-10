@@ -35,8 +35,8 @@
         <div class="row">
         <mat-form-field appearance="outline">
             <mat-label>Role</mat-label>
-            <mat-select formControlName="role" multiple>
-              <mat-option *ngFor="let val of role" [value]="val">{{val.viewValue}}</mat-option>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let val of role" [value]="val.value">{{val.viewValue}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>

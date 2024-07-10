@@ -5,6 +5,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { UpdateCustomerComponent } from '../update-customer/update-customer.component';
+import { UpdateAppointmentComponent } from '../update-appointment/update-appointment.component';
 
 @Component({
   selector: 'app-appointment-list',
@@ -82,6 +84,14 @@ export class AppointmentListComponent implements OnInit{
       }
     })
     
+  }
+
+  //update Appointment
+
+  updateAppointment(data:any){
+    const dialogRef = this.dialog.open(UpdateAppointmentComponent,{
+      data,
+    });
   }
   
 

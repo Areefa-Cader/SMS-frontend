@@ -18,6 +18,7 @@ import { CustomerListComponent } from './component/customer-list/customer-list.c
 import { UpdateAppointmentComponent } from './component/update-appointment/update-appointment.component';
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.component';
+import { ReportComponent } from './component/report/report.component';
 
 
 const routes: Routes = [
@@ -38,7 +39,8 @@ const routes: Routes = [
   {path:'staff-register',component:StaffRegisterComponent},
   {path:'confirm-box', component:ConfirmationBoxComponent},
   {path:'invoice',component:InvoiceComponent},
-  {path:'view-invoice',component:ViewInvoiceComponent}
+  {path:'view-invoice',component:ViewInvoiceComponent},
+  {path:'report',component:ReportComponent}
   
 ];
 

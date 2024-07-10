@@ -12,9 +12,9 @@ export class AddStaffComponent implements OnInit{
   hide= true;
 
   role : any[]=[
-    "Hair Artist",
-    "Skin Care Artist",
-    "Bridal Dresser"
+    {value:"Hair Artist", viewValue:"Hair Artist"},
+    {value:"Skin Care Artist", viewValue:"Skin Care Artist"},
+    {value:"Bridal Dresser", viewValue:"Bridal Dresser"}
   ]
 
   constructor(private httpClient:HttpClient, private dialogRef:MatDialogRef<AddStaffComponent>){
