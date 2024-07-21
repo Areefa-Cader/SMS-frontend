@@ -1,60 +1,60 @@
 
 <div class="sidenav-left">
-    <div class="sidenav-header">
-      <img src="assets/logo.png" alt="logo" class="logo1" [width]="profileSize()" [height]="profileSize()">
-      <div class="logo-text" [class.hide-header-text]="sideNavCollapsed()">
-        <h2>Rinosha's Bridal</h2>
-      </div>
+  <div class="sidenav-header">
+    <img src="assets/logo.png" alt="logo" class="logo1" [width]="profileSize()" [height]="profileSize()">
+    <div class="logo-text" [class.hide-header-text]="sideNavCollapsed()">
+      <h2>Rinosha's Bridal</h2>
     </div>
+  </div>
 
-    <!-- list content -->
-    <mat-nav-list>
-      <!-- <a mat-list-item *ngFor="let item of menuItems()" [routerLink]="item.route"></a> -->
+  <!-- list content -->
+  <mat-nav-list>
+    <!-- <a mat-list-item *ngFor="let item of menuItems()" [routerLink]="item.route"></a> -->
 
-      <mat-list-item role="listitem" routerLink="/dashboard" routerLinkActive="active-link">
-          <mat-icon matListItemIcon>home</mat-icon>
-          <span matListItemTitle>Dashboard</span> 
-      </mat-list-item>
+    <mat-list-item role="listitem" routerLink="/dashboard" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>home</mat-icon>
+        <span matListItemTitle>Dashboard</span> 
+    </mat-list-item>
 
-      <!-- Staff -->
-      <mat-list-item role="listitem" routerLink="/staff" routerLinkActive="active-link" >
-          <mat-icon matListItemIcon>person</mat-icon>
-          <span matListItemTitle>Staff</span>
-      </mat-list-item>
+    <!-- Staff -->
+    <mat-list-item role="listitem" routerLink="/staff" routerLinkActive="active-link" >
+        <mat-icon matListItemIcon>person</mat-icon>
+        <span matListItemTitle>Staff</span>
+    </mat-list-item>
 
-      <!-- Customer -->
-      <mat-list-item role="listitem" routerLink="/customer" routerLinkActive="active-link">
-          <mat-icon matListItemIcon>people</mat-icon>
-          <span matListItemTitle>Customer</span>
-      </mat-list-item>
+    <!-- Customer -->
+    <mat-list-item role="listitem" routerLink="/customer" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Customer</span>
+    </mat-list-item>
 
-       <!-- Appointment -->
-       <mat-list-item role="listitem" routerLink="/appointment" routerLinkActive="active-link">
-          <mat-icon matListItemIcon>event</mat-icon>
-          <span matListItemTitl>Booking</span>
-       </mat-list-item>
-
-      <!-- Services -->
-      <mat-list-item role="listitem" routerLink="/service" routerLinkActive="active-link">
-        <mat-icon matListItemIcon>handshake</mat-icon>
-        <span matListItemTitl>Service</span>
+     <!-- Appointment -->
+     <mat-list-item role="listitem" routerLink="/appointment" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>event</mat-icon>
+        <span matListItemTitl>Booking</span>
      </mat-list-item>
 
-      <!-- Bill -->
-      <mat-list-item role="listitem" routerLink="/invoice" routerLinkActive="active-link">
-          <mat-icon matListItemIcon>attach_money</mat-icon>
-          <span matListItemTitl>Invoice</span>
-      </mat-list-item>
-    
+    <!-- Services -->
+    <mat-list-item role="listitem" routerLink="/service" routerLinkActive="active-link">
+      <mat-icon matListItemIcon>handshake</mat-icon>
+      <span matListItemTitl>Service</span>
+   </mat-list-item>
 
-    <mat-divider></mat-divider>
+    <!-- Bill -->
+    <mat-list-item role="listitem" routerLink="/invoice" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>attach_money</mat-icon>
+        <span matListItemTitl>Invoice</span>
+    </mat-list-item>
+  
+
+  <mat-divider></mat-divider>
 
 
-    <mat-list-item role="listitem" routerLink="" style="margin-top:30px;">
-      <mat-icon matListItemIcon>logout</mat-icon>
-      <span matListItemTitl>Logout</span>
-  </mat-list-item>
+  <mat-list-item role="listitem" routerLink="" style="margin-top:30px;">
+    <mat-icon matListItemIcon>logout</mat-icon>
+    <span matListItemTitl>Logout</span>
+</mat-list-item>
 
 
-  </mat-nav-list>
-  </div>
+</mat-nav-list>
+</div>

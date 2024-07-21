@@ -32,5 +32,35 @@
   mat-sidenav, mat-sidenav-content{
     transition: all 500ms ease-in-out;
   }
-  
+  .button{
+    background: none;
+   
+   }
+   .add-button{
+    border-radius: 25px;
+    -webkit-box-shadow: 0px 1px 15px 4px rgba(237,155,165,1);
+-moz-box-shadow: 0px 1px 15px 4px rgba(237,155,165,1);
+box-shadow: 0px 1px 15px 4px rgba(237,155,165,1);
+    
+   }
+
+   //report
+
+   .report{
+    width: 100%;
+    border: 2px solid red;
+    height: 85%;
+    
+   }
+
+   .report-content{
+    flex:1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 80px;
+    padding: 10px;
+    font-size: 18px;
+   }
   

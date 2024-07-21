@@ -10,9 +10,9 @@
   <button mat-icon-button class="example-icon" >
     <mat-icon>person</mat-icon>
   </button>
-  <button mat-raised-button style="background-color:#ED9BA5 ; border-radius: 20px; color: white;" routerLink="/staff-login">
+  <!-- <button mat-raised-button style="background-color:#ED9BA5 ; border-radius: 20px; color: white;" routerLink="/staff-login">
     Staff Login
-  </button>
+  </button> -->
 </mat-toolbar>
 
 <!-- <app-header2></app-header2> -->
@@ -47,12 +47,15 @@
                 </mat-form-field>
 
                 <div class="forgot-password" style=" text-align: center;">
-                 <a mat-button  style="color:#492E26;">Forgot Password</a>
+                 <button mat-button  style="color:#492E26;" routerLink="/forgot-password">Forgot Password</button>
                 </div>
                 <div class="button-area">
-                    <button mat-fab extended color="primary" [disabled]="!username || !password" class="login-button">
+                    <button mat-raised-button  [disabled]="!username || !password" class="login-button">
                         Login
                       </button> &nbsp;&nbsp;
+                      <button mat-raised-button  class="login-button" routerLink="/staff-register">
+                        Register
+                      </button>
                 </div> 
               </form>    
                 </div>

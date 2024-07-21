@@ -1,7 +1,7 @@
 
 <mat-sidenav-container>
     <mat-sidenav opened mode="side" [style.width]="sidenavwidth()">
-      <app-sidenav-left [collapsed]="collapsed()" ></app-sidenav-left>
+      <app-sidenav-two [collapsed]="collapsed()" ></app-sidenav-two>
     </mat-sidenav>
   
     <mat-sidenav-content class="content"[style.margin-left]="sidenavwidth()">
@@ -10,28 +10,17 @@
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="collapsed.set(!collapsed())">
         <mat-icon>menu</mat-icon>
         </button>
-        <h3>Report Management</h3>
         <span class="example-spacer"></span>
         <button  mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
           <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
         </button>
         &nbsp;
         <img class="user-icon" mat-elevation-z8 src="assets/profile.png">&nbsp;
-        <p class="user-role">owner</p>
+        <p class="user-role">Admin</p>
       
       </mat-toolbar>
   
-      <br>
-      <div class="report">
-
-
-        <button mat-raised-button class="report-content" routerLink="/service-report" > Service  Report</button>
-
-<br>
-        <button mat-raised-button class="report-content" routerLink="/staff-count-report">Employee  Count Report</button>
-<br>        
-        <button mat-raised-button class="report-content">Daily Invome Report</button>
-       
-</div>
+      <app-main-content> 
+      </app-main-content>
     </mat-sidenav-content>
   </mat-sidenav-container>

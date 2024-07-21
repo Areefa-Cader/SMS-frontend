@@ -4,22 +4,22 @@
             <h2>REGISTER</h2>
         </mat-card-header>
         <mat-card-content class="content">
-            <form #registrationForm="ngForm" [formGroup]="register" (ngSubmit)="staffRegister()">
+            <form #registrationForm = "ngForm" (ngSubmit)="staffRegister()">
                 <div class="column">
                 <mat-form-field class="example-full-width">
                   <mat-label>Fullname</mat-label>
-                  <input matInput name="fullname" formControlName="fullname" required>
-                  <!-- <mat-error *ngIf="!fullname">
-                    fullname is required
-                  </mat-error> -->
+                  <input matInput name="fullname" placeholder="Fullname" [(ngModel)]="fullname"  required>
+                  <mat-error *ngIf="!fullname">
+                    Fullname is required
+                  </mat-error>
                 </mat-form-field> &nbsp;
     
                 <mat-form-field class="example-full-width">
                     <mat-label>Email</mat-label>
-                    <input matInput type="email" name="email" formControlName="email" required>
-                    <!-- <mat-error *ngIf="!email">
+                    <input matInput type="email" name="email" placeholder="Email" [(ngModel)]="email" required>
+                    <mat-error *ngIf="!contact_no">
                       Email is required
-                    </mat-error> -->
+                    </mat-error>
                   </mat-form-field> &nbsp;
                 </div>
                 
@@ -27,16 +27,18 @@
 
                 <mat-form-field class="example-full-width">
                     <mat-label>Contact No</mat-label>
-                    <input matInput name="contact_no" formControlName="contact_no" required>
-                    <!-- <mat-error *ngIf="!mobile">
-                      Mobile is required
-                    </mat-error> -->
+                    <input matInput name="contact_no" placeholder="Contact No" [(ngModel)]="contact_no" required>
+                    <mat-error *ngIf="!contact_no">
+                      Contact no is required
+                    </mat-error>
                 </mat-form-field> &nbsp;
                    
                 <mat-form-field>
                     <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker"  name="dob" formControlName="dob" required>
-                    <mat-hint>MM/DD/YYYY</mat-hint>
+                    <input matInput [matDatepicker]="picker"  name="DOB" placeholder="Date of Birth" [(ngModel)]="dob" required>
+                    <mat-error *ngIf="!dob">
+                      Date of Birth is required
+                    </mat-error>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>&nbsp;
@@ -47,12 +49,12 @@
 
                     <mat-form-field class="example-full-width">
                         <mat-label>Role</mat-label>
-                        <mat-select name="role" formControlName="role" required >
+                        <mat-select name="role" placeholder="Role" [(ngModel)]="selectedRole" required >
                             <mat-option *ngFor="let val of role" [value]="val" >{{val}}</mat-option>
                         </mat-select>
-                        <!-- <mat-error *ngIf="!role">
+                        <mat-error *ngIf="!selectedRole">
                           Role is required
-                        </mat-error> -->
+                        </mat-error>
                       </mat-form-field>
                   </div>
 
@@ -61,34 +63,35 @@
     
                 <mat-form-field class="example-full-width">
                     <mat-label>Username</mat-label>
-                    <input matInput name="username" formControlName="username" required>
-                    <!-- <mat-error *ngIf="!username">
+                    <input matInput name="username" placeholder="Username" [(ngModel)]="username" required>
+                    <mat-error *ngIf="!username">
                       Username is required
-                    </mat-error> -->
+                    </mat-error>
                   </mat-form-field>&nbsp;
     
                 <mat-form-field class="example-full-width">
                   <mat-label>Password</mat-label>
-                  <input matInput [type]="hide ? 'password' : 'text'" name="password" formControlName="password" required>
+                  <input matInput [type]="hide ? 'password' : 'text'" name="password" placeholder="Password" [(ngModel)]="password" required>
                   <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
                     <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
                   </button>
-                  <!-- <mat-error *ngIf="!password">
+                  <mat-error *ngIf="!password">
                     Password is required
-                  </mat-error> -->
+                  </mat-error>
                 </mat-form-field> 
     
               </div>
     
                   <div class="example-button-row">
-                    <button mat-fab extended color="primary" [disabled]="registrationForm.invalid" style="background-color: #ED9BA5; width:50%;font-size: 17px;">
+                    <button mat-raised-button color="primary" [disabled]="registrationForm.invalid" 
+                    style="background-color: #ED9BA5; width:50%;font-size: 17px; padding:25px; border-radius: 25px;">
                       Register
                     </button>
                   </div>
                      <br>
                     <div class="example-button-row">
                     <p>Already have an Account
-                      <a mat-button routerLink="/staff-login" style="color:#CBA18D ;">LOGIN</a>
+                      <a mat-button routerLink="/" style="color:#CBA18D ;">LOGIN</a>
                     </p>
                   </div>  
     

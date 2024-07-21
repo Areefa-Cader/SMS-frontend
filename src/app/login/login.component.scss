@@ -52,11 +52,16 @@ h2{
 .button-area{
    
     margin-top: 10px;
+
+    button{
+        background-color:#ED9BA5;
+    }
   }
   .login-button{
-    background-color:#ED9BA5;
-    width: 100%;
+    width: 47%;
     color: white;
-    font-size: 17px;
+    font-size: 15px;
+    border-radius: 25px;
+    padding: 20px;
     
   }

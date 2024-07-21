@@ -1,4 +1,4 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, Input, signal } from '@angular/core';
 
 @Component({
   selector: 'app-report',
@@ -6,6 +6,14 @@ import { Component, computed, signal } from '@angular/core';
   styleUrls: ['./report.component.scss']
 })
 export class ReportComponent {
-  collapsed = signal(false);
+  collapsed = signal(true);
    sidenavwidth = computed(()=>this.collapsed() ? '65px':'200px');
+
+   panelOpenState = false;
+   sideNavCollapsed = signal(false);
+  //  @Input() set collapsed(val:boolean){
+  //   this.sideNavCollapsed.set(val);
+  //  }
+
+   profileSize = computed(()=>this.sideNavCollapsed() ? '50' : '70');
 }

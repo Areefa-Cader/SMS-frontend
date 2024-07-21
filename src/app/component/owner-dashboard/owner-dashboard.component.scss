@@ -1,0 +1,36 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  mat-toolbar{
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index:5;
+  }
+  
+  .user-icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .user-role{
+  margin-top: -10px;
+  font-size: 0.7rem;
+  color: black;
+  margin-top: 10px;
+  }
+  
+  
+  .content{
+    padding: 24px;
+  }
+  mat-sidenav-container{
+   height: 100vh;
+  }
+  mat-sidenav, mat-sidenav-content{
+    transition: all 500ms ease-in-out;
+  }
+
+  

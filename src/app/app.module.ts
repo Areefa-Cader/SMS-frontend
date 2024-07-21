@@ -47,6 +47,13 @@ import { InvoiceComponent } from './component/invoice/invoice.component';
 import { InvoiceListComponent } from './component/invoice-list/invoice-list.component';
 import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.component';
 import { ReportComponent } from './component/report/report.component';
+import { OwnerDashboardComponent } from './component/owner-dashboard/owner-dashboard.component';
+import { SidenavTwoComponent } from './dashboard/sidenav-two/sidenav-two.component';
+import { ServiceReportComponent } from './component/service-report/service-report.component';
+import { ServiceReportListComponent } from './component/service-report-list/service-report-list.component';
+import { StaffCountReportComponent } from './component/staff-count-report/staff-count-report.component';
+import { StaffCountListComponent } from './component/staff-count-list/staff-count-list.component';
+import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 
 
 
@@ -88,6 +95,13 @@ import { ReportComponent } from './component/report/report.component';
     InvoiceListComponent,
     ViewInvoiceComponent,
     ReportComponent,
+    OwnerDashboardComponent,
+    SidenavTwoComponent,
+    ServiceReportComponent,
+    ServiceReportListComponent,
+    StaffCountReportComponent,
+    StaffCountListComponent,
+    ForgotPasswordComponent,
     
     
    

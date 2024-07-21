@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-staff-register',
@@ -10,6 +11,7 @@ import { MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrls: ['./staff-register.component.scss']
 })
 export class StaffRegisterComponent implements OnInit {
+  selectedRole : any ='';
    role : any[] =[
     "Hair Artist",
     "Skin Care Artsit",
@@ -17,19 +19,16 @@ export class StaffRegisterComponent implements OnInit {
    ]
 
   hide=true;
+  
+  fullname:any = '';
+  email:any= '';
+  contact_no:any='';
+  dob:any='';
+  username:any='';
+  password:any='';
 
-  register = new FormGroup({
-    fullname: new FormControl(),
-    email: new FormControl(),
-    contact_no: new FormControl(),
-    dob: new FormControl('', Validators.required),
-    role: new FormControl(),
-    username: new FormControl(),
-    password: new FormControl(),
 
-  });
-
-  constructor(private httpClient:HttpClient){
+  constructor(private httpClient:HttpClient, private toastr:ToastrService){
 
   }
 
@@ -47,11 +46,30 @@ export class StaffRegisterComponent implements OnInit {
 
 
   staffRegister(){
-     console.log(this.register.value);
-       if(this.register.valid){
-      this.httpClient.post('http://127.0.0.1:8000/api/register', this.register.value).subscribe((res)=>{
+
+    let staff ={
+      'fullname':this.fullname,
+      'email':this.email,
+      'contact_no':this.contact_no,
+      'dob':this.dob,
+      'role':this.selectedRole,
+      'username':this.username,
+      'password':this.password
+    }
+
+    console.log(staff.role);
+    
+
+     console.log(staff);
+       if(staff){
+      this.httpClient.post('http://127.0.0.1:8000/api/register', staff).subscribe((res:any)=>{
         console.log(res);
-        alert('Sussessfully Saved');
+        if(res.message){
+          this.toastr.success(res.message);
+        }else if(res.error){
+          this.toastr.error(res.error);
+        }
+        
         this.getAllStaff();
       })
   }
