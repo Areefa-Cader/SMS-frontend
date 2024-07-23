@@ -54,6 +54,7 @@ import { ServiceReportListComponent } from './component/service-report-list/serv
 import { StaffCountReportComponent } from './component/staff-count-report/staff-count-report.component';
 import { StaffCountListComponent } from './component/staff-count-list/staff-count-list.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
+import { StaffProfileComponent } from './component/staff-profile/staff-profile.component';
 
 
 
@@ -102,6 +103,7 @@ import { ForgotPasswordComponent } from './component/forgot-password/forgot-pass
     StaffCountReportComponent,
     StaffCountListComponent,
     ForgotPasswordComponent,
+    StaffProfileComponent,
     
     
    

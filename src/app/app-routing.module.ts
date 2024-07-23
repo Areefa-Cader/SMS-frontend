@@ -23,6 +23,7 @@ import { OwnerDashboardComponent } from './component/owner-dashboard/owner-dashb
 import { ServiceReportComponent } from './component/service-report/service-report.component';
 import { StaffCountReportComponent } from './component/staff-count-report/staff-count-report.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
+import { StaffProfileComponent } from './component/staff-profile/staff-profile.component';
 
 const routes: Routes = [
   {path:'home', component:HomeComponent},
@@ -50,6 +51,7 @@ const routes: Routes = [
   {path:'service-report',component:ServiceReportComponent},
   {path:'staff-count-report',component:StaffCountReportComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
+  {path:'staff-profile',component:StaffProfileComponent},
   { path: '**', redirectTo: 'login' }
   
 ];
