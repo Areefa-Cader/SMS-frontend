@@ -56,7 +56,7 @@
         </button>
         &nbsp;
         <img class="user-icon" mat-elevation-z8 src="assets/profile.png">&nbsp;
-        <p class="user-role">Owner</p>
+        <p class="user-role">{{username}}</p>
       
       </mat-toolbar>
       <br>
@@ -77,28 +77,28 @@
         <h2>Staff Details</h2>
 
         <mat-card appearance="outlined" class="input-box">
-            <span>fullname</span>
-            <span>Emilia</span>
+            <span class="title">fullname</span>
+            <span>{{fullname}}</span>
         </mat-card><br>
 
         <mat-card appearance="outlined" class="input-box">
-            <span>Username</span>
-            <span>Emilia</span>
+            <span class="title">Username</span>
+            <span>{{username}}</span>
         </mat-card><br>
 
         <mat-card appearance="outlined" class="input-box">
-            <span>Email</span>
-            <span>Emilia@gmail.com</span>
+            <span class="title">Email</span>
+            <span>{{email}}</span>
         </mat-card><br>
 
         <mat-card appearance="outlined" class="input-box">
-            <span>dob</span>
-            <span>12 june 1993</span>
+            <span class="title">dob</span>
+            <span>{{dob}}</span>
         </mat-card><br>
 
         <mat-card appearance="outlined" class="input-box">
-            <span>Contact no</span>
-            <span>077459237</span>
+            <span class="title">Contact no</span>
+            <span>{{contact_no}}</span>
         </mat-card>
 
        
@@ -107,8 +107,8 @@
      
     <div class="active-list">
         <mat-card appearance="outlined" class="input-box" style="margin-top: 50px;">
-            <span>Role</span>
-            <span>Hair Artist</span>
+            <span class="title">Role</span>
+            <span>{{role}}</span>
         </mat-card><br>
         <mat-form-field appearance="outline" >
             <mat-label>Enter the leave date</mat-label>
@@ -123,7 +123,7 @@
           <br>
           <br>
           <span>
-          <mat-slide-toggle [(ngModel)]="isChecked">Available: {{isChecked}}</mat-slide-toggle>
+          <mat-slide-toggle [(ngModel)]="isChecked">Available: {{status}}</mat-slide-toggle>
           </span>
           <br>
           <button mat-raised-button class="update" style="background-color:#ED9BA5;">Save Changes</button><br>

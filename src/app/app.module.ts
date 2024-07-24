@@ -55,6 +55,9 @@ import { StaffCountReportComponent } from './component/staff-count-report/staff-
 import { StaffCountListComponent } from './component/staff-count-list/staff-count-list.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { StaffProfileComponent } from './component/staff-profile/staff-profile.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
+import { AuthInterceptor } from './auth.interceptor';
+
 
 
 
@@ -118,7 +121,9 @@ import { StaffProfileComponent } from './component/staff-profile/staff-profile.c
     ToastrModule.forRoot(),
     FormsModule,
   ],
-  providers: [],
+  providers: [
+    {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, computed, OnInit, signal } from '@angular/core';
 
 @Component({
@@ -6,13 +7,16 @@ import { Component, computed, OnInit, signal } from '@angular/core';
   styleUrls: ['./staff-profile.component.scss']
 })
 export class StaffProfileComponent implements OnInit{
-  role : any[] =[
-    "Hair Artist",
-    "Skin Care Artsit",
-    "Bridal Dresser"
-   ]
+
+fullname: any='';
+email:any ='';
+contact_no:any ='';
+dob:any ='';
+role:any ='';
+status:any ='';
+username:any ='';
    
-  isChecked = true;
+  isChecked = false;
   panelOpenState = false;
   sideNavCollapsed = signal(true);
  
@@ -24,7 +28,7 @@ export class StaffProfileComponent implements OnInit{
 
  profilePic: string;
 
-  constructor() {
+  constructor(private httpClient:HttpClient) {
     this.profilePic = localStorage.getItem('profilePic') || 'assets/profile.png';
   }
 
@@ -33,6 +37,14 @@ export class StaffProfileComponent implements OnInit{
     if (storedProfilePic) {
       this.profilePic = storedProfilePic;
     }
+
+    this.fullname = localStorage.getItem('fullname') || '';
+    this.email = localStorage.getItem('email') || '';
+    this.contact_no = localStorage.getItem('contact_no') || '';
+    this.dob = localStorage.getItem('dob') || '';
+    this.role = localStorage.getItem('role') || '';
+    this.status = localStorage.getItem('status') || '';
+    this.username = localStorage.getItem('username') || '';
   }
 
   onFileSelected(event: any): void {
@@ -46,5 +58,12 @@ export class StaffProfileComponent implements OnInit{
       reader.readAsDataURL(file);
     }
   }
+
+
+ getProfile(){
+  
+   
+ }
+
 
 }

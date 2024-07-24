@@ -40,6 +40,16 @@ export class LoginComponent implements OnInit{
       }
 
       console.log(res.response.userRole);
+
+      localStorage.setItem('token', res.response.token);
+      localStorage.setItem('userRole', res.response.userRole);
+      localStorage.setItem('fullname', res.response.fullname);
+      localStorage.setItem('email', res.response.email);
+      localStorage.setItem('contact_no', res.response.contact_no);
+      localStorage.setItem('dob', res.response.dob);
+      localStorage.setItem('role', res.response.role);
+      localStorage.setItem('status', res.response.status);
+      localStorage.setItem('username', res.response.username);
         
         if(res.response.userRole == 'admin'){
           this.toastr.success(res.message);
@@ -50,8 +60,9 @@ export class LoginComponent implements OnInit{
           this.router.navigate(['/owner-dashboard']);
 
         }else if(res.response.userRole == 'staff'){
+
           this.toastr.success(res.message);
-          // this.router.navigate(['/owner-dashboard']);
+          this.router.navigate(['/staff-profile']);
         }
 
         else{
@@ -64,7 +75,8 @@ export class LoginComponent implements OnInit{
   }
 
   logout(){
-    this.httpClient.post('http://127.0.0.1:8000/api/login',{}).subscribe(()=>{
+    this.httpClient.post('http://127.0.0.1:8000/api/logout',{}).subscribe(()=>{
+      localStorage.clear();
       this.router.navigate([""]);
     })
   }
