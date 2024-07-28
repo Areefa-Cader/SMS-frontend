@@ -1,8 +1,9 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-service',
@@ -10,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./add-service.component.scss']
 })
 export class AddServiceComponent implements OnInit{
+  @Output() serviceAdded = new EventEmitter<void>();
 
   storeService = new FormGroup({
     service_name:new FormControl('',Validators.required ),
@@ -18,7 +20,8 @@ export class AddServiceComponent implements OnInit{
     price : new FormControl('',Validators.required )
 });
 
-  constructor(private httpClient: HttpClient, private router:Router, private dialogRef:DialogRef){
+  constructor(private httpClient: HttpClient, private router:Router, 
+    private dialogRef:DialogRef, private toastr: ToastrService){
 
   }
 
@@ -39,8 +42,9 @@ export class AddServiceComponent implements OnInit{
     this.httpClient.post('http://127.0.0.1:8000/api/addService',this.storeService.value).subscribe(
       (res:any)=>{
         console.log(res);
-        alert(res.message);
+        this.toastr.success(res.message);
         this.dialogRef.close(AddServiceComponent);
+        this.serviceAdded.emit();
         this.getAllservices();
       }
     )

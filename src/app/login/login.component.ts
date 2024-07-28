@@ -57,7 +57,7 @@ export class LoginComponent implements OnInit{
           
         }else if(res.response.userRole == 'owner'){
           this.toastr.success(res.message);
-          this.router.navigate(['/owner-dashboard']);
+          this.router.navigate(['/dashboard']);
 
         }else if(res.response.userRole == 'staff'){
 

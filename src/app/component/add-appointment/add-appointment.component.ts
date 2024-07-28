@@ -5,6 +5,8 @@ import { UtilityService } from 'src/app/utility.service';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
 import { AppointmentSlotsComponent } from '../appointment-slots/appointment-slots.component';
+import { ToastrService } from 'ngx-toastr';
+import { MatStepper } from '@angular/material/stepper';
 
 @Component({
   selector: 'app-add-appointment',
@@ -40,12 +42,13 @@ export class AddAppointmentComponent implements OnInit {
     private httpClient: HttpClient,
     private utilityService: UtilityService,
     private router:Router,
-    private dialog:MatDialog
+    private dialog:MatDialog,
+    private toastr:ToastrService
   ) 
   {
     this.firstFormGroup = this._formBuilder.group({
       fullname: ['', Validators.required],
-      email: ['', Validators.required],
+      email: ['', Validators.required ],
       contact_no: ['', Validators.required],
       gender: ['', Validators.required],
       address: ['', Validators.required]
@@ -98,8 +101,8 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   addCustomerDetails() {
-    const customerName = this.firstFormGroup.value;
-    this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails', customerName).subscribe((res: any) => {
+    const customerData = this.firstFormGroup.value;
+    this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails', customerData).subscribe((res: any) => {
       if (res.customer) {
         this.customerDetails = res.customer;
         
@@ -111,9 +114,15 @@ export class AddAppointmentComponent implements OnInit {
           address: this.customerDetails.address
         });
       } else {
-        alert(res.message);
-        this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', customerName).subscribe((res) => {
-          alert('Successfully Added');
+        this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', customerData).subscribe((res: any) => {
+          if (res.success) {
+            this.customerDetails = res.customer;
+            this.toastr.success('Customer added successfully');
+          } else {
+            this.toastr.error(res.message);
+          }
+        }, (error) => {
+          this.toastr.error(error.message);
         });
       }
     });
@@ -179,33 +188,53 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   onConfirm(){
-    if(this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff){
+    if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff) {
       const selectedServices = this.secondFormGroup.value.service;
       const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
-      console.log(serviceIds);
       
-  
-      const appointmentData = {
-        customer_id :this.customerDetails.id,
-        service_id:serviceIds,
-        staff_id:this.selectedStaff.id,
-        date: this.selectedDate?.toISOString().split('T')[0],
-        time:this.selectedTimes,
-        price:this.secondFormGroup.value.price,
-        
+      const customerData = {
+        fullname: this.firstFormGroup.value.fullname,
+        contact_no: this.firstFormGroup.value.contact_no,
+        gender:this.firstFormGroup.value.gender,
+        email: this.firstFormGroup.value.email,
+        address: this.firstFormGroup.value.address
       };
-      console.log(appointmentData);
-      
-      this.httpClient.post('http://127.0.0.1:8000/api/addAppointment',appointmentData).subscribe((res:any)=>{
-       console.log(res);
-       alert(res.message);
-        this.router.navigate(["/appointment"]);
-       
-      });
-    }else{
-      alert('please fill all required fields');
+  
+      this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails', customerData).subscribe(
+        (customerRes: any) => {
+          const customerId = customerRes.customer.id;
+  
+          const appointmentData = {
+            customer_id: customerId,
+            service_id: serviceIds,
+            staff_id: this.selectedStaff.id,
+            date: this.selectedDate?.toISOString().split('T')[0],
+            time: this.selectedTimes,
+            price: this.secondFormGroup.value.price,
+          };
+  
+          this.httpClient.post('http://127.0.0.1:8000/api/addAppointment', appointmentData).subscribe(
+            (res: any) => {
+              console.log(res);
+              alert(res.message);
+              this.router.navigate(["/appointment"]);
+            },
+            (error: any) => {
+              console.error(error);
+              alert('Error creating appointment');
+            }
+          );
+        },
+        (error: any) => {
+          console.error(error);
+          alert('Error creating or updating customer');
+        }
+      );
+    } else {
+      alert('Please fill all required fields');
     }
   }
+
   //timeslots
 
   showAvailableTimeSlots(date: Date) {
@@ -219,5 +248,22 @@ export class AddAppointmentComponent implements OnInit {
         console.log('The dialog was closed');
       });
     });
+  }
+
+  //alert message
+
+  move(stepper:MatStepper, step : number){
+    if(step === 1 && !this.firstFormGroup.valid){
+     this.toastr.warning('Please fill the required field');
+    }else if(step === 2 && !this.secondFormGroup.valid){
+      this.toastr.warning('Please fill the required field'); 
+    }
+    else if(step === 3 && !this.selectedStaff){
+      this.toastr.warning('Please select a staff');
+    }
+    else{
+      stepper.next();
+    }
+
   }
 }

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -28,7 +29,7 @@ export class StaffRegisterComponent implements OnInit {
   password:any='';
 
 
-  constructor(private httpClient:HttpClient, private toastr:ToastrService){
+  constructor(private httpClient:HttpClient, private toastr:ToastrService, private router:Router){
 
   }
 
@@ -65,12 +66,22 @@ export class StaffRegisterComponent implements OnInit {
       this.httpClient.post('http://127.0.0.1:8000/api/register', staff).subscribe((res:any)=>{
         console.log(res);
         if(res.message){
+          this.getAllStaff();
           this.toastr.success(res.message);
+          
+          this.router.navigate(['/staff-register']);
         }else if(res.error){
           this.toastr.error(res.error);
         }
         
-        this.getAllStaff();
+        
+        // this.fullname = '';
+        // this.email = '';
+        // this.contact_no = '';
+        // this.dob ='';
+        // this.selectedRole = '';
+        // this.username = '';
+        // this.password = '';
       })
   }
 }

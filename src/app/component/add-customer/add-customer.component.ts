@@ -4,6 +4,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-customer',
@@ -19,7 +20,8 @@ export class AddCustomerComponent implements OnInit{
   ]
   
 
-  constructor(private httpClient:HttpClient, private dialogRef:MatDialogRef<AddCustomerComponent>, private router:Router){
+  constructor(private httpClient:HttpClient, private dialogRef:MatDialogRef<AddCustomerComponent>, 
+    private router:Router, private toastr:ToastrService){
 
   }
 
@@ -47,7 +49,7 @@ export class AddCustomerComponent implements OnInit{
     if(this.saveCustomer.valid){
     this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', this.saveCustomer.value).subscribe((res:any)=>{
        console.log(res);
-       alert(res.message);
+       this.toastr.success(res.message);
        this.dialogRef.close();
        
     })

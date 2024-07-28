@@ -12,6 +12,7 @@ import { AppointmentSlotsComponent } from '../appointment-slots/appointment-slot
   styleUrls: ['./update-appointment.component.scss']
 })
 export class UpdateAppointmentComponent implements OnInit{
+  
   staffList: any[] = [];
   selectedStaff: any = null;
   serviceList: any[] = [];

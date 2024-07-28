@@ -47,8 +47,6 @@ import { InvoiceComponent } from './component/invoice/invoice.component';
 import { InvoiceListComponent } from './component/invoice-list/invoice-list.component';
 import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.component';
 import { ReportComponent } from './component/report/report.component';
-import { OwnerDashboardComponent } from './component/owner-dashboard/owner-dashboard.component';
-import { SidenavTwoComponent } from './dashboard/sidenav-two/sidenav-two.component';
 import { ServiceReportComponent } from './component/service-report/service-report.component';
 import { ServiceReportListComponent } from './component/service-report-list/service-report-list.component';
 import { StaffCountReportComponent } from './component/staff-count-report/staff-count-report.component';
@@ -57,6 +55,10 @@ import { ForgotPasswordComponent } from './component/forgot-password/forgot-pass
 import { StaffProfileComponent } from './component/staff-profile/staff-profile.component';
 import { HTTP_INTERCEPTORS } from '@angular/common/http'; 
 import { AuthInterceptor } from './auth.interceptor';
+import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
+import { StaffDashboardComponent } from './component/staff-dashboard/staff-dashboard.component';
+import { SuccessPasswordComponent } from './component/success-password/success-password.component';
+import {CurrencyPipe} from '@angular/common';
 
 
 
@@ -99,14 +101,15 @@ import { AuthInterceptor } from './auth.interceptor';
     InvoiceListComponent,
     ViewInvoiceComponent,
     ReportComponent,
-    OwnerDashboardComponent,
-    SidenavTwoComponent,
     ServiceReportComponent,
     ServiceReportListComponent,
     StaffCountReportComponent,
     StaffCountListComponent,
     ForgotPasswordComponent,
     StaffProfileComponent,
+    ResetPasswordComponent,
+    StaffDashboardComponent,
+    SuccessPasswordComponent,
     
     
    
@@ -120,6 +123,7 @@ import { AuthInterceptor } from './auth.interceptor';
     HttpClientModule,
     ToastrModule.forRoot(),
     FormsModule,
+    CurrencyPipe
   ],
   providers: [
     {provide:HTTP_INTERCEPTORS, useClass:AuthInterceptor,multi:true}

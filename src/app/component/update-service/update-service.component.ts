@@ -1,6 +1,6 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 
@@ -10,6 +10,7 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
   styleUrls: ['./update-service.component.scss']
 })
 export class UpdateServiceComponent implements OnInit{
+  @Output() serviceUpdated = new EventEmitter<void>();
   
   service = new FormGroup({
     service_name: new FormControl(),
@@ -51,6 +52,7 @@ export class UpdateServiceComponent implements OnInit{
 
   closeUpdateBox(){
     this.dialogRef.close(UpdateServiceComponent);
+    this.serviceUpdated.emit(); 
   }
 
 }

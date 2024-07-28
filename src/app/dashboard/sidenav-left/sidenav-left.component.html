@@ -45,6 +45,12 @@
         <mat-icon matListItemIcon>attach_money</mat-icon>
         <span matListItemTitl>Invoice</span>
     </mat-list-item>
+
+      <!-- report -->
+      <mat-list-item role="listitem" *ngIf="isOwner()" routerLink="/report" routerLinkActive="active-link">
+        <mat-icon matListItemIcon>description</mat-icon>
+        <span matListItemTitl>Report</span>
+    </mat-list-item>
   
 
   <mat-divider></mat-divider>

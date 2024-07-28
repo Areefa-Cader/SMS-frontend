@@ -1,8 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ViewInvoiceComponent } from '../view-invoice/view-invoice.component';
+import { InvoiceComponent } from '../invoice/invoice.component';
 
 @Component({
   selector: 'app-invoice-list',
@@ -12,7 +15,7 @@ import { MatTableDataSource } from '@angular/material/table';
 export class InvoiceListComponent implements OnInit{
  
 
-  displayedColumns: any[] = ['id','customer_name','issue_date','total_amount','due_date','status','action'];
+  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','issue_date','due_date','status','action'];
   dataSource!:MatTableDataSource<any>;
   
 
@@ -23,7 +26,7 @@ export class InvoiceListComponent implements OnInit{
 
  
 
-  constructor(private httpClient:HttpClient){
+  constructor(private httpClient:HttpClient, private dialog:MatDialog){
     
   }
 
@@ -48,6 +51,14 @@ export class InvoiceListComponent implements OnInit{
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  openInvoice(data:any){
+    const dialogRef = this.dialog.open(ViewInvoiceComponent,{
+      data
+  });
+
+   
   }
 
 }

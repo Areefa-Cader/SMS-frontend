@@ -55,7 +55,7 @@
           <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
         </button>
         &nbsp;
-        <img class="user-icon" mat-elevation-z8 src="assets/profile.png">&nbsp;
+        <img class="user-icon" mat-elevation-z8 [src]="profilePic" alt="Profile Picture">&nbsp;
         <p class="user-role">{{username}}</p>
       
       </mat-toolbar>
@@ -72,12 +72,12 @@
         <br>
         </div>
 
-        <div class="personal-details" style="  ">
+        <div class="personal-details" >
 
-        <h2>Staff Details</h2>
+        <h2 style="font-family: Verdana, Geneva, Tahoma, sans-serif;">Staff Details</h2>
 
         <mat-card appearance="outlined" class="input-box">
-            <span class="title">fullname</span>
+            <span class="title">Fullname</span>
             <span>{{fullname}}</span>
         </mat-card><br>
 
@@ -92,7 +92,7 @@
         </mat-card><br>
 
         <mat-card appearance="outlined" class="input-box">
-            <span class="title">dob</span>
+            <span class="title">Date of Birth</span>
             <span>{{dob}}</span>
         </mat-card><br>
 

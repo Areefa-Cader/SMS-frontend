@@ -19,11 +19,12 @@ import { UpdateAppointmentComponent } from './component/update-appointment/updat
 import { InvoiceComponent } from './component/invoice/invoice.component';
 import { ViewInvoiceComponent } from './component/view-invoice/view-invoice.component';
 import { ReportComponent } from './component/report/report.component';
-import { OwnerDashboardComponent } from './component/owner-dashboard/owner-dashboard.component';
 import { ServiceReportComponent } from './component/service-report/service-report.component';
 import { StaffCountReportComponent } from './component/staff-count-report/staff-count-report.component';
 import { ForgotPasswordComponent } from './component/forgot-password/forgot-password.component';
 import { StaffProfileComponent } from './component/staff-profile/staff-profile.component';
+import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
+import { StaffDashboardComponent } from './component/staff-dashboard/staff-dashboard.component';
 
 const routes: Routes = [
   {path:'home', component:HomeComponent},
@@ -45,13 +46,13 @@ const routes: Routes = [
   {path:'invoice',component:InvoiceComponent},
   {path:'view-invoice',component:ViewInvoiceComponent},
   {path:'report',component:ReportComponent},
-  {path:'owner-dashboard',component:OwnerDashboardComponent},
   { path: 'admin/dashboard', component: MainDashboardComponent},
-  { path: 'owner/dashboard', component: OwnerDashboardComponent},
   {path:'service-report',component:ServiceReportComponent},
   {path:'staff-count-report',component:StaffCountReportComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'staff-profile',component:StaffProfileComponent},
+  {path:'reset-password',component:ResetPasswordComponent},
+  {path:'staff-dashboard', component:StaffDashboardComponent},
   { path: '**', redirectTo: 'login' }
   
 ];

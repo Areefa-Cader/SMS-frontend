@@ -39,7 +39,7 @@
                 </mat-form-field>
               </div>
               <div>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button (click)="move(stepper, 1)">Next</button>
               </div>
             </form>
           </mat-step>
@@ -86,7 +86,7 @@
               </div>
               <div>
                 <button mat-button matStepperPrevious>Back</button>
-                <button mat-button matStepperNext>Next</button>
+                <button mat-button (click)="move(stepper, 2)">Next</button>
               </div>
             </form>
           </mat-step>
@@ -112,7 +112,7 @@
             <br>
             <div>
               <button mat-button matStepperPrevious>Back</button>
-              <button mat-button matStepperNext>Next</button>
+              <button mat-button (click)="move(stepper, 3)" >Next</button>
             </div>
           </mat-step>
 

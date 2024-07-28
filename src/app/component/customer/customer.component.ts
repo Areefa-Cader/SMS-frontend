@@ -1,6 +1,7 @@
 import { Component, OnInit, computed, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
+import { DialogRef } from '@angular/cdk/dialog';
 
 @Component({
   selector: 'app-customer',
@@ -16,10 +17,14 @@ export class CustomerComponent implements OnInit{
 
   }
   ngOnInit(): void {
+   
+
   }
 
   customerForm(){
     this.dialog.open(AddCustomerComponent);
   }
+
+  
 
 }
