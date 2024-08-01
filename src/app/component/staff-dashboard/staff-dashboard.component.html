@@ -1,1 +1,76 @@
-<p>staff-dashboard works!</p>
+<mat-toolbar>
+  <img src="assets/logo.png" alt="logo" class="logo">
+  <span class="title">Staff Dashboard</span>
+ 
+    <span class="example-spacer"></span>
+    <button mat-raised-button class="search"><mat-icon>search</mat-icon>Search</button>
+    
+   <span class="dateTime" ><mat-icon>event</mat-icon>&nbsp; 28/07/2024</span> &nbsp;&nbsp;
+   <span class="dateTime"><mat-icon>access_time</mat-icon>&nbsp; 4.27pm</span>
+</mat-toolbar>
+
+<div class="content" style="display: flex;">
+
+<div class="calendar">
+
+<mat-card class="demo-inline-calendar-card">
+    <mat-calendar [(selected)]="selected" [startAt]="startDate1"></mat-calendar>
+  </mat-card>
+  <!-- <p>Selected date: {{selected}}</p> -->
+  <mat-card class="demo-inline-calendar-card">
+    <mat-calendar [(selected)]="selected" [startAt]="startDate2"></mat-calendar>
+  </mat-card> 
+  
+</div>
+
+<div class="time-slots" style="display: flex;" >
+  <mat-list class="time">
+    <mat-list-item>Item 1</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 2</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 3</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 4</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 5</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 6</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 7</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 8</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 9</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 10</mat-list-item>
+  </mat-list>
+  <mat-list class="staff">
+    <mat-list-item>Item 1<button class="done" mat-raised-button>Done</button></mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 2</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 3</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 4</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 5</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 6</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 7</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 8</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 9</mat-list-item>
+    <mat-divider></mat-divider>
+    <mat-list-item>Item 10</mat-list-item>
+  </mat-list>
+
+  <mat-card class="data">
+    <span>5 Appointments</span>
+  </mat-card>
+  
+</div>
+
+</div>

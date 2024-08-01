@@ -1,0 +1,82 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .logo{
+    width: 40px;
+    height: 40px;
+  }
+  .search{
+    width: 20%;
+    margin-right: 50px;
+    border-radius: 25px;
+    background-color: #ED9BA5;
+    height: 30px;
+  }
+  mat-toolbar{
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index:5;
+  }
+  .mat-icon{
+    font-size: 25px;
+  }
+  .dateTime{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+  }
+  .demo-inline-calendar-card {
+    width: 240px;
+   
+  }
+  .calendar{
+    margin-left: 20px;
+  }
+  mat-list{
+    margin-top: 10px;
+  }
+  mat-list-item{
+    padding: 15px;
+    border: 1px solid rgb(181, 181, 181);
+    margin-bottom: 7px;
+    
+  }
+  mat-divider{
+    margin-left: 20px;
+    width: 100%;
+    
+  }
+  .time{
+    margin-left: 20px;
+    margin-bottom: 10px;
+  }
+  .staff{
+    margin-left: 20px;
+    margin-bottom: 10px;
+
+    mat-list-item{
+      padding-right: 500px;
+      margin-bottom: 7px;
+      display: flex;
+      align-items: center;
+      justify-content:center;
+    }
+  }
+  .data{
+    margin-left: 20px;
+    margin-bottom: 30px;
+    margin-top: 20px;
+    padding-right: 120px;
+    margin-right: 20px;
+  }
+  .done{
+    margin-right: 150px;
+    
+  }
+ 
+  
+ 

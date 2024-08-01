@@ -7,11 +7,23 @@ import { MatDialog } from '@angular/material/dialog';
 import { AppointmentSlotsComponent } from '../appointment-slots/appointment-slots.component';
 import { ToastrService } from 'ngx-toastr';
 import { MatStepper } from '@angular/material/stepper';
+import { MatSelect } from '@angular/material/select';
+import { DatePipe } from '@angular/common';
+
+interface TimeSlot {
+  time: string;
+  isBooked: boolean;
+  appointments:any;
+  staffName?: string;
+  serviceName?: string;
+}
+
 
 @Component({
   selector: 'app-add-appointment',
   templateUrl: './add-appointment.component.html',
-  styleUrls: ['./add-appointment.component.scss']
+  styleUrls: ['./add-appointment.component.scss'],
+  providers: [DatePipe]
 })
 export class AddAppointmentComponent implements OnInit {
   staffList: any[] = [];
@@ -21,12 +33,12 @@ export class AddAppointmentComponent implements OnInit {
   serviceGroup: any[] = [];
 
   customerDetails: any;
-  selectedDate: Date | null = null;
+  selectedDate:  any;
   selectedTimes: Date | null = null;
-  availableTimes: string[] = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00','18:00'];
-
+  availableTimes: TimeSlot[] = [];
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
+
 
   fullname:any;
   service:any;
@@ -43,11 +55,12 @@ export class AddAppointmentComponent implements OnInit {
     private utilityService: UtilityService,
     private router:Router,
     private dialog:MatDialog,
-    private toastr:ToastrService
+    private toastr:ToastrService,
+    private datePipe:DatePipe
   ) 
   {
     this.firstFormGroup = this._formBuilder.group({
-      fullname: ['', Validators.required],
+      fullname: ['', Validators.required,],
       email: ['', Validators.required ],
       contact_no: ['', Validators.required],
       gender: ['', Validators.required],
@@ -82,12 +95,20 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   openTimePicker(event: any) {
-    this.selectedDate = event.value;
-    if (this.selectedDate) {
-      this.showAvailableTimeSlots(this.selectedDate);
-    } else {
-      alert('Please select a valid date');
-    }
+
+    this.selectedDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+  
+      if (this.selectedDate) {
+        const today = new Date();
+        today.setHours(0,0,0,0);
+        if(this.selectedDate < today){
+          this.toastr.warning('Please select a valid date')
+        }else{
+          this.showAvailableTimeSlots(this.selectedDate);
+        }
+        
+      }
+   
   }
 
   updateTime(event: any) {
@@ -187,6 +208,11 @@ export class AddAppointmentComponent implements OnInit {
     });
   }
 
+  confirmSelection(select: MatSelect) {
+    select.close();
+    this.updateServiceDetails(this.secondFormGroup.get('service')?.value);
+  }
+
   onConfirm(){
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff) {
       const selectedServices = this.secondFormGroup.value.service;
@@ -208,46 +234,61 @@ export class AddAppointmentComponent implements OnInit {
             customer_id: customerId,
             service_id: serviceIds,
             staff_id: this.selectedStaff.id,
-            date: this.selectedDate?.toISOString().split('T')[0],
+            date: this.selectedDate,
             time: this.selectedTimes,
             price: this.secondFormGroup.value.price,
           };
+
+          
   
           this.httpClient.post('http://127.0.0.1:8000/api/addAppointment', appointmentData).subscribe(
             (res: any) => {
               console.log(res);
-              alert(res.message);
-              this.router.navigate(["/appointment"]);
+              if(res.message){
+                this.toastr.success(res.message);
+                this.router.navigate(["/appointment"]);
+              }else{
+                this.toastr.error(res.error);
+              }
             },
             (error: any) => {
               console.error(error);
-              alert('Error creating appointment');
+              this.toastr.error('Error creating appointment');
             }
           );
         },
         (error: any) => {
           console.error(error);
-          alert('Error creating or updating customer');
+          this.toastr.error('Error creating or updating customer');
         }
       );
     } else {
-      alert('Please fill all required fields');
+      this.toastr.warning('Please fill all required fields');
     }
   }
 
   //timeslots
 
   showAvailableTimeSlots(date: Date) {
-    this.httpClient.get(`http://127.0.0.1:8000/api/getAllTimeSlots?date=${date.toISOString().split('T')[0]}`).subscribe((res: any) => {
-      const dialogRef = this.dialog.open(AppointmentSlotsComponent, {
-        width: '300px',
-        data: { timeSlots: res.timeSlots }
-      });
+   const requestDate = {date: date};
+   
+   
+   this.httpClient.post('http://127.0.0.1:8000/api/getAllTimeSlots', requestDate).subscribe((res:any)=>{
+    if(Array.isArray(res.timeSlots)){
+    
+    this.availableTimes = res.timeSlots.map((slot:any)=>({
+      time: slot.time,
+      isBooked: slot.isBooked,
+      staffName: slot.staffName,
+      serviceName: slot.serviceName
+    }));
+  }
+  
 
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-    });
+  console.log('available times' , this.availableTimes);
+  
+    
+   });
   }
 
   //alert message
