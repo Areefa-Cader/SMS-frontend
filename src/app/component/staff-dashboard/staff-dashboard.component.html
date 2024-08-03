@@ -11,42 +11,28 @@
 
 <div class="content" style="display: flex;">
 
-<div class="calendar">
+<div class="calendar" *ngIf="appointmentsLoaded">
 
 <mat-card class="demo-inline-calendar-card">
-    <mat-calendar [(selected)]="selected" [startAt]="startDate1"></mat-calendar>
-  </mat-card>
+    <mat-calendar class="highlight-date" [startAt]="startDate1" [dateClass]="dateClass" >
+    </mat-calendar>
+  </mat-card> 
   <!-- <p>Selected date: {{selected}}</p> -->
   <mat-card class="demo-inline-calendar-card">
-    <mat-calendar [(selected)]="selected" [startAt]="startDate2"></mat-calendar>
+    <mat-calendar class="highlight-date"  [startAt]="startDate2" [dateClass]="dateClass"></mat-calendar>
   </mat-card> 
   
 </div>
 
 <div class="time-slots" style="display: flex;" >
   <mat-list class="time">
-    <mat-list-item>Item 1</mat-list-item>
+    <ng-container *ngFor="let timeSlots of allTimeSlots" >
+    <mat-list-item >{{timeSlots}}</mat-list-item>
     <mat-divider></mat-divider>
-    <mat-list-item>Item 2</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 3</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 4</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 5</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 6</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 7</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 8</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 9</mat-list-item>
-    <mat-divider></mat-divider>
-    <mat-list-item>Item 10</mat-list-item>
+  </ng-container>
   </mat-list>
   <mat-list class="staff">
-    <mat-list-item>Item 1<button class="done" mat-raised-button>Done</button></mat-list-item>
+    <mat-list-item>Item 1</mat-list-item>
     <mat-divider></mat-divider>
     <mat-list-item>Item 2</mat-list-item>
     <mat-divider></mat-divider>

@@ -31,6 +31,7 @@
   }
   .demo-inline-calendar-card {
     width: 240px;
+    margin-top: 10px;
    
   }
   .calendar{
@@ -42,7 +43,8 @@
   mat-list-item{
     padding: 15px;
     border: 1px solid rgb(181, 181, 181);
-    margin-bottom: 7px;
+    margin-bottom: 12px;
+    margin-left: 20px;
     
   }
   mat-divider{
@@ -60,23 +62,33 @@
 
     mat-list-item{
       padding-right: 500px;
-      margin-bottom: 7px;
+      margin-bottom: 12px;
       display: flex;
       align-items: center;
       justify-content:center;
+      margin-left: 50px;
     }
   }
   .data{
-    margin-left: 20px;
+    margin-left: 60px;
     margin-bottom: 30px;
     margin-top: 20px;
     padding-right: 120px;
     margin-right: 20px;
+    height: 50%;
   }
   .done{
-    margin-right: 150px;
+    // margin-right: 150px;
     
   }
- 
+  button.example-custom-date-class{
+    background:#e6bfc3;
+    border-radius: 100%;
+  }
+  button.example-today-date-class{
+    background:#e6bfc3;
+    border-radius: 100%;
+    border: 2px solid black;
+  }
   
  

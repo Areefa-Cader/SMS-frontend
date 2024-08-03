@@ -217,6 +217,9 @@ export class AddAppointmentComponent implements OnInit {
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff) {
       const selectedServices = this.secondFormGroup.value.service;
       const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
+
+      console.log(serviceIds);
+      
       
       const customerData = {
         fullname: this.firstFormGroup.value.fullname,
