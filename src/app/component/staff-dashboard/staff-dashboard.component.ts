@@ -19,10 +19,12 @@ import { filter } from 'rxjs';
 })
 export class StaffDashboardComponent implements OnInit{
 
-  startDate1: Date;
-  startDate2: Date;
+  startDate1: Date | null;
+  startDate2: Date | null;
   appointmentDates :string[] = [];
   appointmentsLoaded = false;
+  appointmentDetails : any[] =[];
+  selectedAppointments: any[]=[];
  
   
   constructor(private dateAdapter: DateAdapter<Date>,
@@ -37,12 +39,6 @@ export class StaffDashboardComponent implements OnInit{
   
   }
 
-  // timeSlots = [
-  //   { time: '11:00 AM', staff: { name: 'Jayden Barnes', specialization: 'Cosmetology', image: 'assets/jayden.jpg' }, reschedulable: true },
-  //   { time: '12:00 PM', staff: { name: 'Vijaya Prabakaran Manchester', specialization: 'Osteopathy', image: 'assets/vijaya.jpg' }, reschedulable: true },
-  //   // Add more slots here
-  // ];
-
    
   allTimeSlots = [
     '09:00', '10:00', '11:00', '12:00', '13:00',
@@ -52,22 +48,34 @@ export class StaffDashboardComponent implements OnInit{
 
 ngOnInit(): void {
   this.getAllAppointment();
- 
   
 }
 
+
+// storing the dates
 getAllAppointment(){
   this.httpClient.get('http://127.0.0.1:8000/api/getAllAppointment').subscribe((res:any)=>{
-    this.appointmentDates = res.map((appointment: any) => {
-        return this.datePipe.transform(new Date(appointment.date), 'yyyy-MM-dd');
-      });
+    this.appointmentDetails = res.map((appointment: any) => ({
+        date: this.datePipe.transform(new Date(appointment.date), 'yyyy-MM-dd'),
+        time: appointment.time,
+        staff : appointment.empName,
+        service : appointment.service,
+        customer : appointment.cusName,
+      }));
+      this.appointmentDetails.sort((a, b) => a.time.localeCompare(b.time)); // sort the time
+      console.log(this.appointmentDetails);
+      
+      this.appointmentDates = this.appointmentDetails.map(appointment => appointment.date);
       this.appointmentsLoaded = true;
       console.log('Appointment Dates:', this.appointmentDates);
       this.cdRef.detectChanges(); 
-    });
-    
+
+      this.showTodaysAppointments();
+    });  
    
 }
+
+// highlights the date
 
 dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
   
@@ -90,6 +98,27 @@ dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
   }
   return '';
 };
+
+
+
+onSelectDate(date : Date | null): void{
+   const selectedDate = this.datePipe.transform(date, 'yyyy-MM-dd');
+   console.log(selectedDate);
+   
+   this.selectedAppointments = this.appointmentDetails.filter(appointment => appointment.date === selectedDate);
+   console.log(this.selectedAppointments); // filter the booked dates from selected dates
+   
+   this.cdRef.detectChanges();
+}
+showTodaysAppointments(): void {
+  const today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
+  console.log(today);
+  
+  this.selectedAppointments = this.appointmentDetails.filter(appointment => appointment.date === today);
+  console.log(this.selectedAppointments);
+  
+  this.cdRef.detectChanges();
+}
 }
  
     
