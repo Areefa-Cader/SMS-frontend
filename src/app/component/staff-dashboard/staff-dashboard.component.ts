@@ -5,6 +5,7 @@ import {NativeDateAdapter} from '@angular/material/core';
 import { DateAdapter } from '@angular/material/core';
 import { MatCalendarCellClassFunction } from '@angular/material/datepicker';
 import { filter } from 'rxjs';
+import { UserRoleService } from 'src/app/user-role.service';
 
 
 @Component({
@@ -19,6 +20,10 @@ import { filter } from 'rxjs';
 })
 export class StaffDashboardComponent implements OnInit{
 
+
+  today: any;
+  currentTime: any;
+  username: any;
   startDate1: Date | null;
   startDate2: Date | null;
   appointmentDates :string[] = [];
@@ -29,7 +34,9 @@ export class StaffDashboardComponent implements OnInit{
   
   constructor(private dateAdapter: DateAdapter<Date>,
     private httpClient: HttpClient,
-    private datePipe: DatePipe, private cdRef: ChangeDetectorRef,)
+    private datePipe: DatePipe, private cdRef: ChangeDetectorRef,
+    private userRoleService: UserRoleService
+  )
 
       {
     const today = new Date();
@@ -48,6 +55,10 @@ export class StaffDashboardComponent implements OnInit{
 
 ngOnInit(): void {
   this.getAllAppointment();
+  this.username = localStorage.getItem('username') || null;
+
+  this.today = this.datePipe.transform(new Date(), 'yyyy/MM/dd');
+  this.currentTime = this.datePipe.transform(new Date(), 'HH:mm a');
   
 }
 

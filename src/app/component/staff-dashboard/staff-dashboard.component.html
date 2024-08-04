@@ -1,12 +1,19 @@
 <div class="container">
 <mat-toolbar>
+  <mat-icon>arrow_back</mat-icon>&nbsp;
   <img src="assets/logo.png" alt="logo" class="logo">
   <span class="title">Staff Dashboard</span>
  
     <span class="example-spacer"></span>
-    
-   <span class="dateTime" ><mat-icon>event</mat-icon>&nbsp; 28/07/2024</span> &nbsp;&nbsp;
-   <span class="dateTime"><mat-icon>access_time</mat-icon>&nbsp; 4.27pm</span>
+
+   <div class="date">
+   <span class="dateTime" ><mat-icon>event</mat-icon>&nbsp; {{today}}</span> &nbsp;&nbsp;
+   <span class="dateTime"><mat-icon>access_time</mat-icon>&nbsp;{{currentTime}}</span> &nbsp;&nbsp;
+  </div> 
+
+   <img class="user-icon" mat-elevation-z8 src="assets/profile.png">&nbsp;
+   <p class="user-role">{{username}}</p>&nbsp;
+   <mat-icon>logout</mat-icon>
 </mat-toolbar>
 
 <div class="content" style="display: flex;">
