@@ -118,6 +118,12 @@ onSelectDate(date : Date | null): void{
    
    this.selectedAppointments = this.appointmentDetails.filter(appointment => appointment.date === selectedDate);
    console.log(this.selectedAppointments); // filter the booked dates from selected dates
+
+   if(this.selectedAppointments.length === 0){
+    this.selectedAppointments = [{noAppointments: true}];
+  }
+  
+  
    
    this.cdRef.detectChanges();
 }
@@ -127,12 +133,17 @@ showTodaysAppointments(): void {
   
   this.selectedAppointments = this.appointmentDetails.filter(appointment => appointment.date === today);
   console.log(this.selectedAppointments);
+
+  if(this.selectedAppointments.length === 0){
+    this.selectedAppointments = [{noAppointments: true}];
+  }
   
   this.cdRef.detectChanges();
 }
-}
+
+
  
     
 
-
+}
 

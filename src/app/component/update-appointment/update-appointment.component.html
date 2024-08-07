@@ -49,7 +49,7 @@
             <div class="row">
               <mat-form-field appearance="outline">
                 <mat-label>Service</mat-label>
-                <mat-select formControlName="service" multiple>
+                <mat-select formControlName="service" multiple (selectionChange)="confirmSelection($event.source)">
                   <mat-optgroup *ngFor="let group of serviceGroup" [label]="group.name">
                     <mat-option *ngFor="let service of group.service" [value]="service.value">
                       {{ service.viewValue }}
@@ -77,11 +77,16 @@
               </mat-form-field>
               <!-- <div *ngIf="selectedDate"> -->
                 <mat-form-field appearance="outline">
-                  <mat-label>Choose Time</mat-label>
-                  <mat-select (selectionChange)="updateTime($event)" formControlName="time">
-                    <mat-option *ngFor="let time of availableTimes" [value]="time">{{ time }}</mat-option>
+                  <mat-label>Time</mat-label>
+                  <mat-select formControlName="time" required (selectionChange)="updateTime($event)">
+                      <mat-option *ngFor="let slot of availableTimes"
+                                  [value]="slot.time"
+                                  [ngClass]="{ 'booked': slot.isBooked, 'available': !slot.isBooked }">
+                          {{ slot.time }}
+                          <span *ngIf="slot.isBooked"> - Booked by:{{slot.staffName}} for {{slot.serviceName}}</span> 
+                      </mat-option>
                   </mat-select>
-                </mat-form-field>
+              </mat-form-field>
               <!-- </div> -->
             </div>
             <div>

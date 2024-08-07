@@ -34,7 +34,7 @@
   color: #492E26;
 }
 .active-link {
-  background-color:#ED9BA5 ; /* Change this to your desired active color */
+  background-color:#ED9BA5 ; 
   span,mat-icon{
     color:white;
 
@@ -42,7 +42,7 @@
   
 }
 .active-link:hover{
-  mat-icon{
+  span,mat-icon{
     color: white;
   }
 }

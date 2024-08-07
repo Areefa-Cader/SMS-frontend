@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { UpdateCustomerComponent } from '../update-customer/update-customer.component';
 import { UpdateAppointmentComponent } from '../update-appointment/update-appointment.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-appointment-list',
@@ -34,7 +35,7 @@ export class AppointmentListComponent implements OnInit{
   @ViewChild(MatSort) sort!: MatSort;
  
 
-  constructor(private httpClient:HttpClient, private dialog:MatDialog){
+  constructor(private httpClient:HttpClient, private dialog:MatDialog,private toastr:ToastrService){
 
   }
 
@@ -71,7 +72,7 @@ export class AppointmentListComponent implements OnInit{
           console.log(result);
           this.httpClient.delete('http://127.0.0.1:8000/api/deleteAppointment/' + id).subscribe((res:any)=>{
             console.log(res);
-            alert(res.message);
+            this.toastr.success(res.message);
             this.getAllAppointment();
           },
           (error)=>{

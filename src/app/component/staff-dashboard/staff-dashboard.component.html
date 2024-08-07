@@ -1,6 +1,6 @@
 <div class="container">
 <mat-toolbar>
-  <mat-icon>arrow_back</mat-icon>&nbsp;
+  <mat-icon routerLink="/staff-profile">arrow_back</mat-icon>&nbsp;
   <img src="assets/logo.png" alt="logo" class="logo">
   <span class="title">Staff Dashboard</span>
  
@@ -13,7 +13,7 @@
 
    <img class="user-icon" mat-elevation-z8 src="assets/profile.png">&nbsp;
    <p class="user-role">{{username}}</p>&nbsp;
-   <mat-icon>logout</mat-icon>
+   <mat-icon routerLink="/">logout</mat-icon>
 </mat-toolbar>
 
 <div class="content" style="display: flex;">
@@ -33,7 +33,10 @@
   
 </div>
  <mat-card class="container2">
-<div class="staff-view">
+   
+  
+<div class="staff-view"  *ngIf="selectedAppointments.length > 0 && !selectedAppointments[0].noAppointments">
+
   <mat-card *ngFor="let appointment of selectedAppointments" class="staff-grid" >
       
         <img mat-card-avatar src="assets/profile.png" alt='pic' style="
@@ -49,7 +52,14 @@
         <span style="line-height:32px; margin-top: -5px;">{{appointment.customer}}</span>
         <span>{{appointment.time}}</span>
   </mat-card>
+ 
 </div>
+
+<mat-card  class="no-appointments" 
+*ngIf="selectedAppointments.length === 1 && selectedAppointments[0].noAppointments">
+  <mat-icon style="font-size: 30px; color: red;  padding: 30px;"
+  >event_busy</mat-icon>
+  No Appointments!!!!</mat-card>
 </mat-card> 
 
 

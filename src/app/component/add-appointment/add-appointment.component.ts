@@ -216,9 +216,9 @@ export class AddAppointmentComponent implements OnInit {
   onConfirm(){
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff) {
       const selectedServices = this.secondFormGroup.value.service;
-      const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
+      // const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
 
-      console.log(serviceIds);
+      console.log(selectedServices);
       
       
       const customerData = {
@@ -235,7 +235,7 @@ export class AddAppointmentComponent implements OnInit {
   
           const appointmentData = {
             customer_id: customerId,
-            service_id: serviceIds,
+            service_id:selectedServices,
             staff_id: this.selectedStaff.id,
             date: this.selectedDate,
             time: this.selectedTimes,

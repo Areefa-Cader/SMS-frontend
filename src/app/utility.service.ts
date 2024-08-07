@@ -13,7 +13,7 @@ export class UtilityService {
 
   constructor() { }
 
-  // Function to convert time to minutes format
+  //  convert time to minutes 
   convertTimeToReadableFormat(time: string): string {
     const [hours, minutes, seconds] = time.split(':').map(Number);
     let readableFormat = '';
@@ -25,13 +25,13 @@ export class UtilityService {
       readableFormat += `${minutes} min`;
     }
     if (readableFormat === '') {
-      readableFormat = `${seconds} sec`; // In case duration is only in seconds
+      readableFormat = `${seconds} sec`; 
     }
     
     return readableFormat.trim();
   }
 
-   // Function to convert "HH:MM:SS" to total seconds
+   //  convertion "HH:MM:SS" to total seconds
    convertDurationToSeconds(duration: string): number {
     const [hours, minutes, seconds] = duration.split(':').map(Number);
     return hours * 3600 + minutes * 60 + seconds;

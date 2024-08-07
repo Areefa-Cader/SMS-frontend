@@ -21,9 +21,9 @@
               </mat-list-item>
           
               <!-- dashboard -->
-              <mat-list-item role="listitem" routerLinkActive="active-link" >
-                  <mat-icon matListItemIcon>calender</mat-icon>
-                  <span matListItemTitle>Appointment Dashboard</span>
+              <mat-list-item role="listitem" routerLink="/staff-dashboard" routerLinkActive="active-link" >
+                  <mat-icon matListItemIcon>event</mat-icon>
+                  <span matListItemTitle>Staff View</span>
               </mat-list-item>
           
     
@@ -70,6 +70,9 @@
               </label>
               <input id="file-input" type="file" (change)="onFileSelected($event)">
         <br>
+
+        <button mat-raised-button class="appointments" style="background-color:#ED9BA5;"><mat-icon>event</mat-icon>
+           Appointments</button><br>
         </div>
 
         <div class="personal-details" >

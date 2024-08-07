@@ -5,11 +5,23 @@ import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { UtilityService } from 'src/app/utility.service';
 import { AppointmentSlotsComponent } from '../appointment-slots/appointment-slots.component';
+import { DatePipe } from '@angular/common';
+import { ToastrService } from 'ngx-toastr';
+import { MatSelect } from '@angular/material/select';
+
+interface TimeSlot {
+  time: string;
+  isBooked: boolean;
+  appointments:any;
+  staffName?: string;
+  serviceName?: string;
+}
 
 @Component({
   selector: 'app-update-appointment',
   templateUrl: './update-appointment.component.html',
-  styleUrls: ['./update-appointment.component.scss']
+  styleUrls: ['./update-appointment.component.scss'],
+  providers: [DatePipe]
 })
 export class UpdateAppointmentComponent implements OnInit{
   
@@ -22,9 +34,9 @@ export class UpdateAppointmentComponent implements OnInit{
   serviceDetails:any;
 
   customerDetails: any;
-  selectedDate: Date | null = null;
+  selectedDate: any;
   selectedTimes: Date | null = null;
-  availableTimes: string[] = ['09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00','18:00'];
+  availableTimes:  TimeSlot[] = [];
 
   firstFormGroup!: FormGroup 
   secondFormGroup!: FormGroup;
@@ -45,6 +57,8 @@ export class UpdateAppointmentComponent implements OnInit{
     private router:Router,
     private dialog:MatDialog,
     private route:ActivatedRoute,
+    private datePipe : DatePipe,
+    private toastr: ToastrService,
     @Inject(MAT_DIALOG_DATA) public data:any
   ) 
   {
@@ -77,12 +91,13 @@ export class UpdateAppointmentComponent implements OnInit{
     this.restoreAppointmentDetails();
     this.secondFormGroup.get('service')?.valueChanges.subscribe(value => {
       this.service = value;
+      console.log(this.service);
+      
       this.updateServiceDetails(value);
+      
     });
    
   }
-
-  
 
   restoreAppointmentDetails(){
     this.httpClient.get('http://127.0.0.1:8000/api/getAppointmentById/' + this.data.id).subscribe((res:any)=>{
@@ -98,43 +113,57 @@ export class UpdateAppointmentComponent implements OnInit{
         address:appointment.customer.address,
         gender :appointment.customer.gender 
       });
+       
+      const serviceNames = Array.isArray(appointment.service) ?
+        appointment.service.map((s: { service_name: any; }) => s.service_name) :
+        [appointment.service.service_name];
+
+        const formatTime = (time:string): string => {
+          return time.slice(0,5);
+        }
+
       this.secondFormGroup.patchValue({
-        service:Array.isArray(appointment.service) ? appointment.service.map((s: { service_name: any; }) => s.service_name) : [appointment.service.service_name],
-        duration:appointment.duration,
-        price:appointment.price,
-        date:new Date(appointment.appointment.date),
-        time:appointment.appointment.time,
-      });
-      this.selectedStaff = this.staffList.find(staff => staff.id === appointment.staff.id);
+        service: serviceNames,
+        date: this.datePipe.transform(new Date(appointment.appointment.date), 'yyyy-MM-dd'),
+        time: formatTime(appointment.appointment.time),
+      }); 
+      console.log('Form Values:', this.secondFormGroup.value);
+
+      // Call updateServiceDetails to set duration and price
+      this.updateServiceDetails(serviceNames);
+
       
+      this.selectedStaff = this.staffList.find(staff => staff.id === appointment.staff.id);
+
+      this.selectedDate = this.datePipe.transform(new Date(appointment.appointment.date), 'yyyy-MM-dd');
+      this.showAvailableTimeSlots(this.selectedDate);
+      console.log(this.selectedDate);
       
     });
   }
 
   openTimePicker(event: any) {
-    const dialogRef = this.dialog.open(AppointmentSlotsComponent,{
-      data:{
-        selectedDate : this.selectedDate,
-        availableTimes: this.availableTimes
+   this.selectedDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
+   console.log(this.selectedDate);
+   
+      if(this.selectedDate){
+        const today = new Date();
+        today.setHours(0,0,0,0);
+
+        if(this.selectedDate < today){
+          this.toastr.warning('Please select a valid Date');
+        }else{
+          this.showAvailableTimeSlots(this.selectedDate);
+          
+        }
+        
       }
-    });
-    dialogRef.afterClosed().subscribe(res =>{
-      if(res){
-        this.selectedTimes = res;
-        this.secondFormGroup.patchValue({time : this.selectedTimes});
-      }
-    });
   }
 
   updateTime(event: any) {
-    this.selectedTimes = event.value;
+    this.selectedTimes = event.value; 
+    console.log(this.selectedTimes);
     
-  }
-
-  getAllAppointment() {
-    this.httpClient.get('http://127.0.0.1:8000/api/getAllAppointment').subscribe((res) => {
-      console.log(res);
-    });
   }
 
   addCustomerDetails() {
@@ -151,9 +180,17 @@ export class UpdateAppointmentComponent implements OnInit{
           address: this.customerDetails.address
         });
       } else {
-        alert(res.message);
-        this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', customerName).subscribe((res) => {
-          alert('Successfully Added');
+
+        // alert(res.message);
+        this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', customerName).subscribe((res:any) => {
+          if(res.success){
+            this.customerDetails = res.customer;
+            this.toastr.success(res.message);
+          }else{
+            this.toastr.error(res.error);
+          }
+        },(error)=>{
+          this.toastr.error(error.message);
         });
       }
     });
@@ -205,8 +242,10 @@ export class UpdateAppointmentComponent implements OnInit{
 
     selectedServices.forEach((serviceName: string) => {
       const selectedService = this.serviceList.find(service => service.service_name === serviceName);
+
       if (selectedService) {
         totalDuration += this.utilityService.convertDurationToSeconds(selectedService.duration);
+
         totalPrice += parseFloat(selectedService.price);
       }
     });
@@ -221,48 +260,91 @@ export class UpdateAppointmentComponent implements OnInit{
     });
   }
 
+  confirmSelection(select:MatSelect){
+    select.close();
+    this.updateServiceDetails(this.secondFormGroup.get('service')?.value);
+  }
+
   onUpdate(){
 
     if(this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff){
       const selectedServices = this.serviceDetails.id;
+      
+      // const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
+
       console.log(selectedServices);
       
-      const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
-      console.log(serviceIds);
       
-  
-      const appointmentData = {
-        customer_id :this.customerDetails.id,
-        service_id:serviceIds,
-        staff_id:this.selectedStaff.id,
-        date: this.selectedDate?.toISOString().split('T')[0],
-        time:this.secondFormGroup.value.time,
-        price:this.secondFormGroup.value.price
-      };
-      console.log(appointmentData);
-      
-      this.httpClient.put('http://127.0.0.1:8000/api/updateAppointment/'+ this.data.id ,appointmentData).subscribe((res:any)=>{
-       console.log(res);
-       alert(res.message);
-        this.router.navigate(["/appointment"]);
-       
-      });
-    }else{
-      alert('please fill all required fields');
-    }
+      const customerData = {
+        fullname: this.firstFormGroup.value.fullname,
+        contact_no: this.firstFormGroup.value.contact_no,
+        gender: this.firstFormGroup.value.gender,
+        email: this.firstFormGroup.value.email,
+        address: this.firstFormGroup.value.address,
+      }
+
+      this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails' , customerData).subscribe((res:any)=>{
+        const customerId = res.customer.id;
+
+        const appointmentData = {
+          customer_id :customerId,
+          service_id:selectedServices,
+          staff_id:this.selectedStaff.id,
+          date: this.selectedDate,
+          time:this.secondFormGroup.value.time,
+          price:this.secondFormGroup.value.price
+        };
+        console.log(this.data.id);
+        
+
+        this.httpClient.put('http://127.0.0.1:8000/api/updateAppointment/' + this.data.id , appointmentData).subscribe((res:any)=>{
+          console.log(res);
+          if(res.message){
+            this.toastr.success(res.message);
+            this.router.navigate(['/appointment']);
+          }else{
+            this.toastr.error(res.error);
+          }
+          
+        },(error:any)=>{
+          console.log(error);
+          this.toastr.error('Error in Updating appointment')
+          
+        }
+      );
+
+      }, (error:any)=>{
+        console.log(error);
+        this.toastr.error('Error in creating or updating customer');
+
+      }
+    );
+  }else{
+    this.toastr.warning('Please fill all required fields');
+
   }
+}
+
   //timeslots
 
   showAvailableTimeSlots(date: Date) {
-    this.httpClient.get(`http://127.0.0.1:8000/api/getAllTimeSlots?date=${date.toISOString().split('T')[0]}`).subscribe((res: any) => {
-      const dialogRef = this.dialog.open(AppointmentSlotsComponent, {
-        width: '300px',
-        data: { timeSlots: res.timeSlots }
-      });
-
-      dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-      });
-    });
+    const requestDate = {date: date};
+   
+   
+    this.httpClient.post('http://127.0.0.1:8000/api/getAllTimeSlots', requestDate).subscribe((res:any)=>{
+     if(Array.isArray(res.timeSlots)){
+     
+     this.availableTimes = res.timeSlots.map((slot:any)=>({
+       time: slot.time,
+       isBooked: slot.isBooked,
+       staffName: slot.staffName,
+       serviceName: slot.serviceName
+     }));
+ 
+         console.log('available times' , this.availableTimes);
+        
+        
+    }
+    })
   }
 }

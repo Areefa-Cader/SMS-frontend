@@ -1,10 +1,12 @@
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, OnInit, signal } from '@angular/core';
 
 @Component({
   selector: 'app-staff-profile',
   templateUrl: './staff-profile.component.html',
-  styleUrls: ['./staff-profile.component.scss']
+  styleUrls: ['./staff-profile.component.scss'],
+  providers: [DatePipe],
 })
 export class StaffProfileComponent implements OnInit{
 
@@ -28,7 +30,7 @@ username:any ='';
 
  profilePic: string;
 
-  constructor(private httpClient:HttpClient) {
+  constructor(private httpClient:HttpClient, private datePipe:DatePipe) {
     this.profilePic = localStorage.getItem('profilePic') || 'assets/profile.png';
   }
 
@@ -41,7 +43,7 @@ username:any ='';
     this.fullname = localStorage.getItem('fullname') || '';
     this.email = localStorage.getItem('email') || '';
     this.contact_no = localStorage.getItem('contact_no') || '';
-    this.dob = localStorage.getItem('dob') || '';
+    this.dob = this.datePipe.transform((localStorage.getItem('dob') || ''), 'yyyy-MM-dd');
     this.role = localStorage.getItem('role') || '';
     this.status = localStorage.getItem('status') || '';
     this.username = localStorage.getItem('username') || '';
