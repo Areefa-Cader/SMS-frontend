@@ -94,6 +94,11 @@ export class AppointmentListComponent implements OnInit{
       data,
     });
   }
+
+
+  send(id:any){
+
+  }
   
 
 

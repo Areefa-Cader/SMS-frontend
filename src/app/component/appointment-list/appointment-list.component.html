@@ -48,6 +48,10 @@
        <ng-container matColumnDef="action">
         <th mat-header-cell *matHeaderCellDef > Action</th>
         <td mat-cell *matCellDef="let data"> 
+          <button mat-icon-button (click)="send(data.id)" >
+            <mat-icon style="color:#FFC30F;" >send</mat-icon>
+          </button> 
+
           <button mat-icon-button (click)="updateAppointment(data)">
             <mat-icon style="color:#1469C0;">edit</mat-icon>
           </button>

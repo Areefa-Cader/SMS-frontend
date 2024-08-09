@@ -59,6 +59,7 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
 import { StaffDashboardComponent } from './component/staff-dashboard/staff-dashboard.component';
 import { SuccessPasswordComponent } from './component/success-password/success-password.component';
 import {CurrencyPipe} from '@angular/common';
+import { NotificationComponent } from './component/notification/notification.component';
 
 
 
@@ -110,6 +111,7 @@ import {CurrencyPipe} from '@angular/common';
     ResetPasswordComponent,
     StaffDashboardComponent,
     SuccessPasswordComponent,
+    NotificationComponent,
     
     
    
