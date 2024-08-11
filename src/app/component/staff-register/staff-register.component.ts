@@ -16,7 +16,8 @@ export class StaffRegisterComponent implements OnInit {
    role : any[] =[
     "Hair Artist",
     "Skin Care Artsit",
-    "Bridal Dresser"
+    "Bridal Dresser",
+    "Manicurist"
    ]
 
   hide=true;

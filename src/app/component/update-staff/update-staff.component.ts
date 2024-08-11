@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-staff',
@@ -15,18 +16,22 @@ export class UpdateStaffComponent implements OnInit{
   role : any[] =[
     "Hair Artist",
     "Skin Care Artsit",
-    "Bridal Dresser"
+    "Bridal Dresser",
+    "Manicurist"
   ]
 
   update = new FormGroup({
     fullname: new FormControl(),
     email : new FormControl(),
     contact_no: new FormControl(),
-    dob:new FormControl(),
+    // dob:new FormControl(),
     role:new FormControl()
   })
 
-constructor(@Inject(MAT_DIALOG_DATA) public data : any, private httpClient:HttpClient, private dialogRef:DialogRef){
+constructor(@Inject(MAT_DIALOG_DATA) public data : any, 
+private httpClient:HttpClient, 
+private toastr:ToastrService,
+private dialogRef:DialogRef){
   
 
 }
@@ -42,15 +47,14 @@ getAllStaff(){
 
 
   ngOnInit(): void {
-    // Convert the received date string to a Date object
-  const dobDate = new Date(this.data.dob);
+  //   // Convert the received date string to a Date object
+  // const dobDate = new Date(this.data.dob);
   
   // Patch the Date object into the form control
   this.update.patchValue({
     fullname: this.data.fullname,
     email: this.data.email,
     contact_no: this.data.contact_no,
-    dob: dobDate,
     role: this.data.role
   });
   
@@ -64,9 +68,8 @@ getAllStaff(){
         subscribe((res)=>{
           console.log(this.update.value);
           console.log(res);
-          alert('updated successfully');
+          this.toastr.success('updated successfully');
           this.getAllStaff();
-          console.log(this.getAllStaff());
           
           this.dialogRef.close(true);
         })
@@ -76,6 +79,6 @@ getAllStaff(){
       }
 
       closeUpdate(){
-        this.dialogRef.close(true);
+        this.dialogRef.close();
       }    
 }

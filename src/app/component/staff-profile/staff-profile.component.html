@@ -51,9 +51,52 @@
         </button>
         <h3>Staff Profile</h3>
         <span class="example-spacer"></span>
-        <button  mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-          <mat-icon matBadge="15" matBadgeColor="warn">notifications</mat-icon>
+      
+        <!-- Notification -->
+        
+        <button mat-icon-button *ngIf="unreadCount > 0" [matMenuTriggerFor]="notificationsMenu" class="example-icon favorite-icon" (click)="toggleBadgeVisibility()" 
+          aria-label="Example icon-button with heart icon">
+          <mat-icon matBadge="{{unreadCount}}" matBadgeColor="warn" [matBadgeHidden]="hidden">notifications</mat-icon>
         </button>
+
+        <!-- Notifications Menu -->
+        <mat-menu #notificationsMenu="matMenu">
+          <button mat-menu-item [matMenuTriggerFor]="newAppointmentMenu" *ngIf="hasNewAppointment">
+            New Appointment
+          </button>
+          
+          <!-- Show "Reminder" only once -->
+          <button mat-menu-item [matMenuTriggerFor]="reminderMenu" *ngIf="hasReminder">
+            Reminder
+          </button>
+        </mat-menu>
+      
+        
+        <!-- New Appointment Menu -->
+        <mat-menu #newAppointmentMenu="matMenu">
+          <ng-container *ngFor="let notification of notifications" >
+            <ng-container *ngIf="notification.type === 'New Appointment'">
+            <button mat-menu-item  [matMenuTriggerFor]="notification.message">{{ notification.message }}</button>
+            </ng-container>
+          </ng-container>
+        </mat-menu>
+        
+        <!-- Reminder Menu -->
+        <mat-menu #reminderMenu="matMenu">
+          <ng-container *ngFor="let notification of notifications">
+            <ng-container *ngIf="notification.type === 'Reminder'">
+            <button mat-menu-item [matMenuTriggerFor]="notification.message" (click)="markAsRead(notification.id)">
+              <ul>
+                <li> {{ notification.message }}</li>
+                
+              </ul>
+            </button>
+            </ng-container>
+          </ng-container>
+        </mat-menu>
+        
+        <!-- notification -->
+       
         &nbsp;
         <img class="user-icon" mat-elevation-z8 [src]="profilePic" alt="Profile Picture">&nbsp;
         <p class="user-role">{{username}}</p>
@@ -71,8 +114,8 @@
               <input id="file-input" type="file" (change)="onFileSelected($event)">
         <br>
 
-        <button mat-raised-button class="appointments" style="background-color:#ED9BA5;"><mat-icon>event</mat-icon>
-           Appointments</button><br>
+        <!-- <button mat-raised-button class="appointments" style="background-color:#ED9BA5;"><mat-icon>event</mat-icon>
+           Appointments</button><br> -->
         </div>
 
         <div class="personal-details" >
@@ -129,7 +172,7 @@
           <mat-slide-toggle [(ngModel)]="isChecked">Available: {{status}}</mat-slide-toggle>
           </span>
           <br>
-          <button mat-raised-button class="update" style="background-color:#ED9BA5;">Save Changes</button><br>
+          <button mat-raised-button class="update" style="background-color:#ED9BA5;" (click)="updateBox()">Save Changes</button><br>
           <button mat-raised-button class="update">Cancel</button>
 
     </div>

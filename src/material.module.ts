@@ -36,6 +36,7 @@ import {AsyncPipe} from '@angular/common';
 import {LiveAnnouncer} from '@angular/cdk/a11y';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 
+
 @NgModule({
 
     exports:[
@@ -67,7 +68,8 @@ import {MatSlideToggleModule} from '@angular/material/slide-toggle';
         MatDividerModule,
         MatRadioModule,
         MatAutocompleteModule,
-        MatSlideToggleModule
+        MatSlideToggleModule,
+        MatMenuModule
         
     ]
 

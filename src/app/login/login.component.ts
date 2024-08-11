@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,11 @@ export class LoginComponent implements OnInit{
   username:any='';
   password:any='';
 
-  constructor(private router:Router, private toastr:ToastrService , private httpClient:HttpClient){
+  constructor(private router:Router,
+     private toastr:ToastrService , 
+     private httpClient:HttpClient,
+     private authService:AuthService 
+    ){
 
   }
 
@@ -28,7 +33,6 @@ export class LoginComponent implements OnInit{
       'username': this.username,
       'password':this.password
     }
-    console.log(form);
     
     this.httpClient.post('http://127.0.0.1:8000/api/login',form).subscribe(
       (res:any) => {
@@ -41,6 +45,7 @@ export class LoginComponent implements OnInit{
 
       console.log(res.response.userRole);
 
+      localStorage.setItem('id',res.response.id)
       localStorage.setItem('token', res.response.token);
       localStorage.setItem('userRole', res.response.userRole);
       localStorage.setItem('fullname', res.response.fullname);
@@ -50,6 +55,10 @@ export class LoginComponent implements OnInit{
       localStorage.setItem('role', res.response.role);
       localStorage.setItem('status', res.response.status);
       localStorage.setItem('username', res.response.username);
+
+      this.authService.setLoggedInUserId(res.response.id);
+      console.log(this.authService.setLoggedInUserId(res.response.id));
+      
         
         if(res.response.userRole == 'admin'){
           this.toastr.success(res.message);
@@ -62,6 +71,7 @@ export class LoginComponent implements OnInit{
         }else if(res.response.userRole == 'staff'){
 
           this.toastr.success(res.message);
+          
           this.router.navigate(['/staff-profile']);
         }
 

@@ -1,6 +1,10 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { Component, computed, OnInit, signal } from '@angular/core';
+import { Component, computed, OnInit, signal, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenu } from '@angular/material/menu';
+import { AuthService } from 'src/app/auth.service';
+import { UpdateStaffComponent } from '../update-staff/update-staff.component';
 
 @Component({
   selector: 'app-staff-profile',
@@ -9,6 +13,26 @@ import { Component, computed, OnInit, signal } from '@angular/core';
   providers: [DatePipe],
 })
 export class StaffProfileComponent implements OnInit{
+
+  // ---Notification---
+
+  //access the child component
+  @ViewChild('notificationsMenu') notificationsMenu!: MatMenu;
+  @ViewChild('newAppointmentMenu') newAppointmentMenu!: MatMenu;
+  @ViewChild('reminderMenu') reminderMenu!: MatMenu;
+
+  hidden = false;
+
+  hasNewAppointment: boolean = false;
+  hasReminder: boolean = false;
+
+  notifications: any[] = [];
+  unreadCount: number = 0;
+
+  // ---Notification---
+
+  //update details
+
 
 fullname: any='';
 email:any ='';
@@ -30,11 +54,32 @@ username:any ='';
 
  profilePic: string;
 
-  constructor(private httpClient:HttpClient, private datePipe:DatePipe) {
+  constructor(private httpClient:HttpClient, 
+    private datePipe:DatePipe,
+     private authService:AuthService,
+    private dialog:MatDialog,
+    
+    ) {
     this.profilePic = localStorage.getItem('profilePic') || 'assets/profile.png';
   }
 
   ngOnInit(): void {
+    const staffId = this.authService.getLoggedInUserId();
+    console.log(staffId);
+    
+    this.httpClient.get('http://127.0.0.1:8000/api/getNotifications/' + staffId).subscribe((res:any)=>{
+      console.log(res);
+      
+      this.notifications = res.notification;
+      console.log(this.notifications);
+
+      //checks if there is atleast one notification in the notifications array with the type ""
+
+      this.hasNewAppointment = this.notifications.some((n: any) => n.type === 'New Appointment');
+      this.hasReminder = this.notifications.some((n: any) => n.type === 'Reminder');
+      this.unreadCount = res.notification.filter((n :any)=> !n.is_read).length;
+    });
+
     const storedProfilePic = localStorage.getItem('profilePic');
     if (storedProfilePic) {
       this.profilePic = storedProfilePic;
@@ -47,6 +92,35 @@ username:any ='';
     this.role = localStorage.getItem('role') || '';
     this.status = localStorage.getItem('status') || '';
     this.username = localStorage.getItem('username') || '';
+  }
+
+  getMenuTrigger(type:string):MatMenu{
+    switch(type){
+      case 'New Appointment':
+        return this.newAppointmentMenu;
+      case 'Reminder':
+        return this.reminderMenu;
+      default:
+        return this.notificationsMenu;   
+    }
+
+  }
+
+  markAsRead(notificationId: number): void {
+    this.httpClient.put('http://127.0.0.1:8000/api/markAsRead'+ notificationId, {}).subscribe(() => {
+      this.unreadCount--;
+
+      const notification = this.notifications.find((n:any)=> n.id=== notificationId);
+      console.log(notification);
+      
+      if(notification){
+        notification.is_read = true;
+      }
+    });
+  }
+  
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
   }
 
   onFileSelected(event: any): void {
@@ -67,5 +141,29 @@ username:any ='';
    
  }
 
+ updateBox(){
+  const dialogRef = this.dialog.open(UpdateStaffComponent, {
+    data: {
+      'id':this.authService.getLoggedInUserId(),
+      'fullname' : this.fullname,
+      'email':this.email,
+      'contact_no':this.contact_no,
+      'role':this.role
+    }
+    
+  });
 
+  dialogRef.afterClosed().subscribe(result => {
+    console.log(result);
+    
+    if (result) {
+      // If the dialog returns updated data, update the profile with it
+      this.fullname= result.fullname;
+      this.email = result.email;
+      this.contact_no = result.contact_no;
+      this.role = result.role;
+    }
+  });
+
+}
 }

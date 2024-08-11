@@ -96,7 +96,19 @@ export class AppointmentListComponent implements OnInit{
   }
 
 
-  send(id:any){
+  send(appointmentId:any){
+    console.log(appointmentId);
+    
+    this.httpClient.post('http://127.0.0.1:8000/api/sendReminder',{appointmentId}).subscribe((res:any)=>{
+      console.log(res);
+      this.toastr.success(res.message);
+      
+    },(error:any)=>{
+      console.error(error);
+      this.toastr.error(error.error);
+      
+    }
+  )
 
   }
   

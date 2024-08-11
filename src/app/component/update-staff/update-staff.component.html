@@ -22,24 +22,17 @@
                <mat-label>Contact Number</mat-label>
                <input matInput formControlName="contact_no">
            </mat-form-field>
-           
+
            <mat-form-field appearance="outline">
-               <mat-label>Date of Birth</mat-label>
-               <input matInput [matDatepicker]="picker" formControlName="dob">
-               <mat-hint>MM/DD/YYYY</mat-hint>
-               <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-               <mat-datepicker #picker></mat-datepicker>
-             </mat-form-field>
+            <mat-label>Role</mat-label>
+            <mat-select formControlName="role">
+              <mat-option *ngFor="let val of role" [value]="val">{{val}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+           
+          
        </div>
        
-       <div class="row">
-       <mat-form-field appearance="outline">
-           <mat-label>Role</mat-label>
-           <mat-select formControlName="role">
-             <mat-option *ngFor="let val of role" [value]="val">{{val}}</mat-option>
-           </mat-select>
-         </mat-form-field>
-       </div>
        <div class="buttons">
            <button class="button2" mat-raised-button type="button" (click)="closeUpdate()">Cancel</button> &nbsp; &nbsp;
            <button class="button1" mat-raised-button style=" background-color: #ED9BA5 ;" (click)="updateStaff()">
