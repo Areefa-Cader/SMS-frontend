@@ -6,6 +6,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ViewInvoiceComponent } from '../view-invoice/view-invoice.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
+import { BillDetailsComponent } from '../bill-details/bill-details.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-invoice-list',
@@ -15,7 +17,7 @@ import { InvoiceComponent } from '../invoice/invoice.component';
 export class InvoiceListComponent implements OnInit{
  
 
-  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','issue_date','due_date','status','action'];
+  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','advance_payment','issue_date','due_date','status','action'];
   dataSource!:MatTableDataSource<any>;
   
 
@@ -26,7 +28,7 @@ export class InvoiceListComponent implements OnInit{
 
  
 
-  constructor(private httpClient:HttpClient, private dialog:MatDialog){
+  constructor(private httpClient:HttpClient, private dialog:MatDialog, private router:Router){
     
   }
 
@@ -53,12 +55,18 @@ export class InvoiceListComponent implements OnInit{
     }
   }
 
-  openInvoice(data:any){
-    const dialogRef = this.dialog.open(ViewInvoiceComponent,{
-      data
-  });
+  // openInvoice(data:any){
+  //   const dialogRef = this.dialog.open(ViewInvoiceComponent,{
+  //     data
+  // });
 
    
+  // }
+
+  viewInvoice(invoiceId: number){
+    console.log(invoiceId);
+    
+      this.router.navigate(['/bill-details', invoiceId]);
   }
 
 }

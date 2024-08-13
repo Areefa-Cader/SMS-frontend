@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
 import { MatDialogRef } from '@angular/material/dialog';
@@ -12,13 +12,17 @@ import { DatePipe } from '@angular/common';
   providers:[DatePipe]
 })
 export class AddStaffComponent implements OnInit{
+  @Output() staffAdded = new EventEmitter<void>();
+
   hide= true;
+  date : any;
 
   role : any[]=[
     {value:"Hair Artist", viewValue:"Hair Artist"},
     {value:"Skin Care Artist", viewValue:"Skin Care Artist"},
     {value:"Bridal Dresser", viewValue:"Bridal Dresser"},
-    {value:"Manicurist", viewValue:"Manicurist"}
+    {value:"Manicurist", viewValue:"Manicurist"},
+    {value:"All", viewValue:"All"}
   ]
 
   constructor(private httpClient:HttpClient, private dialogRef:MatDialogRef<AddStaffComponent>,
@@ -27,7 +31,10 @@ export class AddStaffComponent implements OnInit{
 
   }
 
+  
+
   submit = new FormGroup({
+    
     fullname:new FormControl('',Validators.required ),
     email:new FormControl('',Validators.required ),
     contact_no:new FormControl('',Validators.required ),
@@ -52,13 +59,21 @@ export class AddStaffComponent implements OnInit{
 
   onSubmitData(){
     if(this.submit.valid){
-      this.datePipe.transform(this.submit.value.dob, 'yyyy-MM-dd');
-      this.httpClient.post('http://127.0.0.1:8000/api/addStaff', this.submit.value).subscribe((res:any)=>{
+
+      const formattedDob = this.datePipe.transform(this.submit.get('dob')?.value, 'yyyy-MM-dd');
+      const formData = { ...this.submit.value, dob: formattedDob };
+      
+      this.httpClient.post('http://127.0.0.1:8000/api/addStaff', formData).subscribe((res:any)=>{
         console.log(res);
-        
-        this.toastr.success('Successfully Added');
-        this.dialogRef.close();
-        this.getAllStaff();
+        if(res.message){
+          this.toastr.success('Successfully Added');
+          this.getAllStaff();
+          this.dialogRef.close();
+          
+        }else if(res.error){
+          this.toastr.error(res.error);
+        }
+       
       })
     }
     console.log(this.submit.value);

@@ -1,4 +1,5 @@
 import { DialogRef } from '@angular/cdk/dialog';
+import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -9,7 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-staff-register',
   templateUrl: './staff-register.component.html',
-  styleUrls: ['./staff-register.component.scss']
+  styleUrls: ['./staff-register.component.scss'],
+  providers:[DatePipe]
 })
 export class StaffRegisterComponent implements OnInit {
   selectedRole : any ='';
@@ -17,7 +19,8 @@ export class StaffRegisterComponent implements OnInit {
     "Hair Artist",
     "Skin Care Artsit",
     "Bridal Dresser",
-    "Manicurist"
+    "Manicurist",
+    "All"
    ]
 
   hide=true;
@@ -30,7 +33,8 @@ export class StaffRegisterComponent implements OnInit {
   password:any='';
 
 
-  constructor(private httpClient:HttpClient, private toastr:ToastrService, private router:Router){
+  constructor(private httpClient:HttpClient, private toastr:ToastrService, 
+    private router:Router, private datePipe:DatePipe){
 
   }
 
@@ -49,11 +53,12 @@ export class StaffRegisterComponent implements OnInit {
 
   staffRegister(){
 
+
     let staff ={
       'fullname':this.fullname,
       'email':this.email,
       'contact_no':this.contact_no,
-      'dob':this.dob,
+      'dob':this.datePipe.transform(this.dob, 'yyyy-MM-dd'),
       'role':this.selectedRole,
       'username':this.username,
       'password':this.password
@@ -70,7 +75,7 @@ export class StaffRegisterComponent implements OnInit {
           this.getAllStaff();
           this.toastr.success(res.message);
           
-          this.router.navigate(['/staff-register']);
+          this.router.navigate(['/']);
         }else if(res.error){
           this.toastr.error(res.error);
         }

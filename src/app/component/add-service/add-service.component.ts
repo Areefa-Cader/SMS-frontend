@@ -42,12 +42,20 @@ export class AddServiceComponent implements OnInit{
     this.httpClient.post('http://127.0.0.1:8000/api/addService',this.storeService.value).subscribe(
       (res:any)=>{
         console.log(res);
-        this.toastr.success(res.message);
-        this.dialogRef.close(AddServiceComponent);
+        if(res.message){
+          this.toastr.success(res.message);
+          this.dialogRef.close(AddServiceComponent);
+        }else{
+          this.toastr.error(res.error);
+        }
         this.serviceAdded.emit();
         this.getAllservices();
       }
     )
+  }
+
+  dialogBoxClose(){
+    this.dialogRef.close(AddServiceComponent);
   }
 
 

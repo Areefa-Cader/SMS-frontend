@@ -1,0 +1,39 @@
+.container{
+    display: flex;
+}
+
+.content{
+    width: 50%;
+    height: 100vh;
+    border: 2px solid black;
+}
+
+.details{
+    margin-left: 40px;
+    display: flex;
+    width: 90%;
+    margin-top: 20px;
+
+    mat-card{
+        width: 60%;
+        margin-left: 40px;
+
+        
+        
+    }
+
+    .value{
+        padding: 8px;
+    }
+
+    mat-label{
+        margin-left: 40px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        font-weight:bold;
+        font-size: 12px;
+    }
+}
+
+mat-card-content{
+    justify-content: space-around;
+}

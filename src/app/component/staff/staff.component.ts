@@ -20,6 +20,9 @@ export class StaffComponent {
 
  openAddStaff(){
   this.dialog.open(AddStaffComponent);
+
+ 
+
  }
 
 }

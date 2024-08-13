@@ -42,38 +42,80 @@
 
 }
 .demo-inline-calendar-card {
-    width:240px;
-    margin-top: -10px;
+    width:300px;
+    
+    margin-top: -20px;
     
   }
 
 .below-section{
     display: flex;
     flex-wrap: wrap;
-    margin-top: 40px;
+    margin-top: 30px;
     justify-content: space-between;
+    margin-bottom: 30px;
 
 } 
 
-.inactive-status {
-    background-color: red;
-    color: white;
-    padding: 10px;
-    margin: 5px 0;
-  }
+// .inactive-status {
+//     background-color: red;
+//     color: white;
+//     padding: 10px;
+//     margin: 5px 0;
+//   }
   
-  .active-status {
-    background-color: green;
-    color: white;
-    padding: 10px;
-    margin: 5px 0;
-  }
+//   .active-status {
+//     background-color: green;
+//     color: white;
+//     padding: 10px;
+//     margin: 5px 0;
+//   }
  .calendar-section{
-  right: 0;
+  right: 10;
   justify-content: flex-end;
  }
+
+ //staff area
+
+
  #staff-availability{
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    // display: flex;
+    // align-items: center;
+    // justify-content: center;
+    // width: 60%;
  }
+
+ .staff-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 10px; /* Adjust the gap between items as needed */
+}
+
+.staff-item {
+  flex: 1 1 200px; /* Adjust the width of each item */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.active-status {
+  color: green;
+}
+
+.inactive-status {
+  color: red;
+}
+
+ //appointment dates
+
+ button.example-custom-date-class{
+  background-color: #ED9BA5 ;
+  
+}
+button.example-today-date-class{
+  border-radius: 100%;
+  border: 2px solid black;
+}

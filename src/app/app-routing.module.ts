@@ -26,6 +26,7 @@ import { StaffProfileComponent } from './component/staff-profile/staff-profile.c
 import { ResetPasswordComponent } from './component/reset-password/reset-password.component';
 import { StaffDashboardComponent } from './component/staff-dashboard/staff-dashboard.component';
 import { NotificationComponent } from './component/notification/notification.component';
+import { BillDetailsComponent } from './component/bill-details/bill-details.component';
 
 const routes: Routes = [
   {path:'home', component:HomeComponent},
@@ -55,6 +56,7 @@ const routes: Routes = [
   {path:'reset-password',component:ResetPasswordComponent},
   {path:'staff-dashboard', component:StaffDashboardComponent},
   {path:'notification',component:NotificationComponent},
+  {path:'bill-details/:id',component:BillDetailsComponent},
   { path: '**', redirectTo: 'login' }
   
 ];

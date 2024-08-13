@@ -33,7 +33,7 @@ export class AddAppointmentComponent implements OnInit {
   serviceGroup: any[] = [];
 
   customerDetails: any;
-  selectedDate:  any;
+  selectedDate:  Date |any;
   selectedTimes: Date | null = null;
   availableTimes: TimeSlot[] = [];
   firstFormGroup: FormGroup;
@@ -97,18 +97,24 @@ export class AddAppointmentComponent implements OnInit {
   openTimePicker(event: any) {
 
     this.selectedDate = this.datePipe.transform(event.value, 'yyyy-MM-dd');
-  
+    console.log(this.selectedDate);
+    
       if (this.selectedDate) {
+
         const today = new Date();
         today.setHours(0,0,0,0);
-        if(this.selectedDate < today){
+
+        const formatToday:any = this.datePipe.transform(today, 'yyyy-MM-dd');
+        console.log(formatToday);
+        
+        if(this.selectedDate < formatToday){
+         
           this.toastr.warning('Please select a valid date')
         }else{
           this.showAvailableTimeSlots(this.selectedDate);
         }
         
       }
-   
   }
 
   updateTime(event: any) {

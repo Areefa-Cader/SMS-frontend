@@ -1,6 +1,6 @@
 <div class="dashboard-card">
     <!-- appointment -->
-    <mat-card class="card" *ngIf="totalAppointment !== null">
+    <mat-card class="card" *ngIf="totalAppointment !== null" style=" background: #e8babf;">
         <mat-card-header>
             <mat-card-title>
                 Total Appointment
@@ -17,7 +17,7 @@
     </mat-card>
 
     <!-- customer -->
-    <mat-card class="card" *ngIf="totalCustomer !== null">
+    <mat-card class="card" *ngIf="totalCustomer !== null" style=" background: #e8babf;">
         <mat-card-header>
             <mat-card-title>
                 Total Customer
@@ -33,7 +33,7 @@
     </mat-card>
 
     <!-- staff -->
-    <mat-card class="card" *ngIf="totalStaff !== null">
+    <mat-card class="card" *ngIf="totalStaff !== null" style=" background: #e8babf;">
         <mat-card-header>
             <mat-card-title>
                 Total Staff
@@ -49,7 +49,7 @@
     </mat-card>
 
     <!-- service -->
-    <mat-card class="card" *ngIf="totalService !== null">
+    <mat-card class="card" *ngIf="totalService !== null" style=" background: #e8babf;">
         <mat-card-header>
             <mat-card-title>
                 Total Service
@@ -66,7 +66,6 @@
 </div>
 
 <!-- appointment -->
-
 
 <div class="appointment-section">
     <h2 >Upcoming Appointment</h2>
@@ -126,27 +125,25 @@
 
  <!-- staff availability -->
  <div class="staff-availability">
-    <h2 style="margin-top: -20px;">Staff Availability</h2>
-    <div id="staff-availability" *ngIf=" staffAvailability">
-        <mat-list role="list">
-            <mat-list-item role="listitem" *ngFor="let staff of staffAvailability">
-                {{staff.fullname}} -- 
-                <span [ngClass]="{'active-status': staff.status, 'inactive-status': !staff.status}">
-                    {{ staff.status ? 'Active' : 'Inactive' }}
-                  </span>
-            </mat-list-item>
-            
-        </mat-list>
-    </div>
- </div>
+      <p style="font-size: 20px;"><b>Staff Availability</b><p>
+      <div id="staff-availability" *ngIf="staffAvailability">
+        <div class="staff-list">
+          <div class="staff-item" *ngFor="let staff of staffAvailability">
+            {{staff.fullname}} --
+            <span [ngClass]="{'active-status': staff.status, 'inactive-status': !staff.status}">
+              {{ staff.status ? 'Have Appointments': 'No Appointments' }}
+            </span>
+          </div>
+        </div>
+      </div>
+  </div>
 
  <!-- calendar -->
- <div class="calendar-section" >
-    <h2 style="margin-top: -20px;">Appointment Calendar</h2>
+ <div class="calendar-section" *ngIf="appointmentsLoaded">
     <mat-card class="demo-inline-calendar-card">
-        <mat-calendar [(selected)]="selected"></mat-calendar>
-      </mat-card>
-      <p>Selected date: {{selected}}</p>
+        <mat-calendar class="highlight-date" [startAt]="startDate1"  (selectedChange)="onSelectDate($event)" [dateClass]="dateClass">
+        </mat-calendar>
+      </mat-card> 
  </div>
 
  </div>

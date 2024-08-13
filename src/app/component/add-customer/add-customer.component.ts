@@ -34,11 +34,11 @@ export class AddCustomerComponent implements OnInit{
   })
 
   ngOnInit(): void {
-    this.getCustomer();
+    this.getAllCustomer();
     
    
   }
-  getCustomer(){
+  getAllCustomer(){
     this.httpClient.get('http://127.0.0.1:8000/api/getCustomer').subscribe((res)=>{
       console.log(res);
     })
@@ -50,6 +50,7 @@ export class AddCustomerComponent implements OnInit{
     this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', this.saveCustomer.value).subscribe((res:any)=>{
        console.log(res);
        this.toastr.success(res.message);
+       this.getAllCustomer();
        this.dialogRef.close();
        
     })

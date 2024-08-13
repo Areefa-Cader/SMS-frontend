@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UpdateServiceComponent } from '../update-service/update-service.component';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
 import { UtilityService } from 'src/app/utility.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-service-list',
@@ -44,7 +45,8 @@ export class ServiceListComponent implements OnInit{
   }
  
 
-  constructor(private httpClient: HttpClient, private dialog:MatDialog , private utilityService:UtilityService){
+  constructor(private httpClient: HttpClient, private dialog:MatDialog , 
+    private utilityService:UtilityService, private toastr:ToastrService){
 
   }
 
@@ -83,8 +85,9 @@ export class ServiceListComponent implements OnInit{
       if(result){
         if(result === true){
           console.log(result);
-          this.httpClient.delete('http://127.0.0.1:8000/api/deleteService/' + id).subscribe((res)=>{
+          this.httpClient.delete('http://127.0.0.1:8000/api/deleteService/' + id).subscribe((res:any)=>{
             console.log(res);
+            this.toastr.success(res.message)
             this.getAllServices();
           },
           (error)=>{

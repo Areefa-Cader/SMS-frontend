@@ -73,7 +73,7 @@ getAllAppointment(){
         service : appointment.service,
         customer : appointment.cusName,
       }));
-      this.appointmentDetails.sort((a, b) => a.time.localeCompare(b.time)); // sort the time
+      this.appointmentDetails.sort((a, b) => a.time.localeCompare(b.time)); // appointments sorted according to time
       console.log(this.appointmentDetails);
       
       this.appointmentDates = this.appointmentDetails.map(appointment => appointment.date);
@@ -94,9 +94,11 @@ dateClass: MatCalendarCellClassFunction<Date> = (cellDate, view) => {
     const fullDate = this.datePipe.transform(cellDate, 'yyyy-MM-dd');
     const today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
 
+    console.log(this.appointmentDates);
+    console.log(fullDate);
+
     // const isHighlighted = this.appointmentDates.some(appointment => appointment === fullDate);
     // console.log(fullDate, isHighlighted);
-
     if (this.appointmentDates.includes(fullDate!)) {
       if (fullDate! === today!) {
         return 'example-today-date-class';
@@ -122,8 +124,6 @@ onSelectDate(date : Date | null): void{
    if(this.selectedAppointments.length === 0){
     this.selectedAppointments = [{noAppointments: true}];
   }
-  
-  
    
    this.cdRef.detectChanges();
 }
@@ -139,11 +139,7 @@ showTodaysAppointments(): void {
   }
   
   this.cdRef.detectChanges();
-}
-
-
- 
-    
+}    
 
 }
 

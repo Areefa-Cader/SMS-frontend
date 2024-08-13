@@ -17,7 +17,8 @@ export class UpdateStaffComponent implements OnInit{
     "Hair Artist",
     "Skin Care Artsit",
     "Bridal Dresser",
-    "Manicurist"
+    "Manicurist",
+    "All"
   ]
 
   update = new FormGroup({
