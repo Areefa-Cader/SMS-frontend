@@ -8,6 +8,8 @@ import { AppointmentSlotsComponent } from '../appointment-slots/appointment-slot
 import { DatePipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 import { MatSelect } from '@angular/material/select';
+import { DialogRef } from '@angular/cdk/dialog';
+import { MatOption } from '@angular/material/core';
 
 interface TimeSlot {
   time: string;
@@ -59,6 +61,7 @@ export class UpdateAppointmentComponent implements OnInit{
     private route:ActivatedRoute,
     private datePipe : DatePipe,
     private toastr: ToastrService,
+    private dialogRef:DialogRef,
     @Inject(MAT_DIALOG_DATA) public data:any
   ) 
   {
@@ -70,14 +73,17 @@ export class UpdateAppointmentComponent implements OnInit{
 
     this.getAllService();
     this.getAllStaff();
+    this.getAllAppointment();
   
     this.firstFormGroup = this._formBuilder.group({
-      fullname: ['', Validators.required],
-      email: ['', Validators.required],
-      contact_no: ['', Validators.required],
-      gender: ['', Validators.required],
-      address: ['', Validators.required]
+      fullname: [{ value: '', disabled: true }, Validators.required],
+      email: [{ value: '', disabled: true }, Validators.required],
+      contact_no: [{ value: '', disabled: true }, Validators.required],
+      gender: [{ value: '', disabled: true }, Validators.required],
+      address: [{ value: '', disabled: true }, Validators.required]
     });
+
+
 
     this.secondFormGroup = this._formBuilder.group({
       service: ['', Validators.required],
@@ -93,7 +99,9 @@ export class UpdateAppointmentComponent implements OnInit{
       this.service = value;
       console.log(this.service);
       
-      this.updateServiceDetails(value);
+      
+      console.log(this.updateServiceDetails(value));
+      
       
     });
    
@@ -114,23 +122,22 @@ export class UpdateAppointmentComponent implements OnInit{
         gender :appointment.customer.gender 
       });
        
-      const serviceNames = Array.isArray(appointment.service) ?
-        appointment.service.map((s: { service_name: any; }) => s.service_name) :
-        [appointment.service.service_name];
-
-        const formatTime = (time:string): string => {
-          return time.slice(0,5);
-        }
+      const serviceName = appointment.service.service_name;
+       const formatTime = (time:string): string =>{
+        return time.slice(0, 5);
+       }
 
       this.secondFormGroup.patchValue({
-        service: serviceNames,
+        service: serviceName,
         date: this.datePipe.transform(new Date(appointment.appointment.date), 'yyyy-MM-dd'),
         time: formatTime(appointment.appointment.time),
       }); 
       console.log('Form Values:', this.secondFormGroup.value);
 
       // Call updateServiceDetails to set duration and price
-      this.updateServiceDetails(serviceNames);
+      this.updateServiceDetails(serviceName);
+      
+      
 
       
       this.selectedStaff = this.staffList.find(staff => staff.id === appointment.staff.id);
@@ -237,93 +244,70 @@ export class UpdateAppointmentComponent implements OnInit{
   }
 
   updateServiceDetails(selectedServices: any) {
-    let totalDuration = 0;
-    let totalPrice = 0;
+    const selectedServiceDetails = this.serviceList.find(service => service.service_name === selectedServices);
+    console.log(selectedServiceDetails);
+    
 
-    selectedServices.forEach((serviceName: string) => {
-      const selectedService = this.serviceList.find(service => service.service_name === serviceName);
-
-      if (selectedService) {
-        totalDuration += this.utilityService.convertDurationToSeconds(selectedService.duration);
-
-        totalPrice += parseFloat(selectedService.price);
-      }
-    });
+   if(selectedServiceDetails){
+    const totalDuration = this.utilityService.convertDurationToSeconds(selectedServiceDetails.duration);
+    const totalPrice = parseFloat(selectedServiceDetails.price);
 
     const totalDurationReadable = this.utilityService.convertTimeToReadableFormat(
-      new Date(totalDuration * 1000).toISOString().substr(11, 8)
+      new Date(totalDuration * 1000).toISOString().substr(11,8)
     );
-
+   
     this.secondFormGroup.patchValue({
       duration: totalDurationReadable,
       price: totalPrice.toFixed(2)
     });
   }
-
-  confirmSelection(select:MatSelect){
-    select.close();
-    this.updateServiceDetails(this.secondFormGroup.get('service')?.value);
   }
+
+  
+
+  getAllAppointment() {
+    this.httpClient.get('http://127.0.0.1:8000/api/getAllAppointment').subscribe((res) => {
+      console.log(res);
+    });
+  }
+
 
   onUpdate(){
 
-    if(this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff){
-      const selectedServices = this.serviceDetails.id;
-      
-      // const serviceIds = Array.isArray(selectedServices) ? selectedServices : [selectedServices];
-
-      console.log(selectedServices);
-      
-      
-      const customerData = {
-        fullname: this.firstFormGroup.value.fullname,
-        contact_no: this.firstFormGroup.value.contact_no,
-        gender: this.firstFormGroup.value.gender,
-        email: this.firstFormGroup.value.email,
-        address: this.firstFormGroup.value.address,
-      }
-
-      this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails' , customerData).subscribe((res:any)=>{
-        const customerId = res.customer.id;
+    const selectedServiceDetails = this.serviceList.find(service => service.service_name === this.service);
+    console.log(selectedServiceDetails);
 
         const appointmentData = {
-          customer_id :customerId,
-          service_id:selectedServices,
+          // customer_id :this.customerDetails.id,
+          service_id:selectedServiceDetails.id,
           staff_id:this.selectedStaff.id,
           date: this.selectedDate,
           time:this.secondFormGroup.value.time,
           price:this.secondFormGroup.value.price
         };
+
         console.log(this.data.id);
         
 
-        this.httpClient.put('http://127.0.0.1:8000/api/updateAppointment/' + this.data.id , appointmentData).subscribe((res:any)=>{
-          console.log(res);
-          if(res.message){
-            this.toastr.success(res.message);
-            this.router.navigate(['/appointment']);
-          }else{
-            this.toastr.error(res.error);
-          }
-          
-        },(error:any)=>{
-          console.log(error);
-          this.toastr.error('Error in Updating appointment')
-          
+      
+        
+      
+
+      this.httpClient.put('http://127.0.0.1:8000/api/updateAppointment/' + this.data.id , appointmentData).subscribe((res:any)=>{
+        console.log(res);
+        if(res.message){
+          this.toastr.success(res.message);
+          this.dialogRef.close(true);
+          this.getAllAppointment();
+          this.router.navigate(["/appointment"]);
+        }else{
+          this.toastr.error(res.error);
         }
-      );
+        
+      })
 
-      }, (error:any)=>{
-        console.log(error);
-        this.toastr.error('Error in creating or updating customer');
-
-      }
-    );
-  }else{
-    this.toastr.warning('Please fill all required fields');
-
+     
   }
-}
 
   //timeslots
 

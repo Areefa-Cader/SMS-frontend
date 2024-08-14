@@ -23,6 +23,7 @@ export class BillDetailsComponent implements OnInit{
   service_name:any ='';
   total_amount:any ='';
   advance_payment:any ='';
+  issue_date:any='';
 
 
   constructor(private httpClient:HttpClient, private toastr:ToastrService, private route:ActivatedRoute){
@@ -42,7 +43,9 @@ export class BillDetailsComponent implements OnInit{
   displayedColumns: any[] = ['service', 'cost'];
 transactions: Transaction[] = [
  
+  
 ];
+
 
 
 getAllInvoiceDetails(id:any){
@@ -53,11 +56,28 @@ getAllInvoiceDetails(id:any){
     this.service_name = res.invoice.service_name;
     this.total_amount = res.invoice.total_amount;
     this.advance_payment = res.invoice.advanced_payment;
+    this.issue_date = res.invoice.issue_date
+
+
+    this.transactions = [
+      {
+        service: this.service_name,
+        cost:this.total_amount
+      }
+    ]
    
     
   })
+
+
+  }
+
+  getTotalCost(){
+    return this.transactions.reduce((acc, transaction) => acc + transaction.cost, '');
+  }
   
 }
   
 
-}
+
+

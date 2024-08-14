@@ -13,19 +13,19 @@
 
         <mat-label>Customer Name</mat-label><br>
         <mat-card appearance="outlined">
-            <span class="value">{{customer_name}}</span> 
+            <span class="value">{{customer_name}} </span> 
           
         </mat-card><br>
 
         <mat-label>Due Date</mat-label><br>
         <mat-card appearance="outlined">
-            <span class="value">{{due_date}}</span> 
+            <span class="value">{{due_date}} </span> 
 
         </mat-card><br>
 
         <mat-label>Advance_payment</mat-label><br>
         <mat-card  appearance="outlined">
-            <span class="value">{{advance_payment}}</span> 
+            <span class="value">{{advance_payment}}  <mat-icon style="float: right; color: #1365B8;">edit</mat-icon></span> 
     
           </mat-card><br>
 
@@ -37,14 +37,14 @@
             <ng-container matColumnDef="service">
               <th mat-header-cell *matHeaderCellDef> Service </th>
               <td mat-cell *matCellDef="let transaction"> {{transaction.service}} </td>
-              <td mat-footer-cell *matFooterCellDef> Total </td>
+              <td mat-footer-cell *matFooterCellDef > Total </td>
             </ng-container>
           
             <!-- Cost Column -->
             <ng-container matColumnDef="cost">
               <th mat-header-cell *matHeaderCellDef> Cost </th>
               <td mat-cell *matCellDef="let transaction"> {{transaction.cost}} </td>
-              <td mat-footer-cell *matFooterCellDef>  </td>
+              <td mat-footer-cell *matFooterCellDef> {{getTotalCost()}} </td>
             </ng-container>
           
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
@@ -57,12 +57,71 @@
 
     </mat-card-content>
 </mat-card>
+<button style="margin-top: 20px; margin-left: 40px;" routerLink="/invoice" mat-raised-button>Back to Invoice Module</button>
  </div>
 
 <!-- Invoice preview -->
- <div class="content">
+ <div >
 
-  <!-- <app-view-invoice></app-view-invoice> -->
+  <mat-card class="preview" >
+    
+    <div class="header" >
+      <img src="assets/logo.png" alt="logo" class="logo">
+      <p class="title">INVOICE</p>
+    </div>
+
+    <div class="header">
+      <div class="customer-details">
+        <span style="font-weight:600;">INVOICE TO:</span><br>
+        <span>{{customer_name}}</span><br>
+        <span></span><br>
+        <span></span>
+      </div>
+
+      <span class="example-spacer"></span>
+
+     <div class="details2">
+      <span>Invoice No:#{{invoiceId}}</span><br>
+      <span>{{issue_date}}</span>
+    </div>
+    </div>
+
+    <mat-card-content>
+      <table mat-table [dataSource]="transactions" class="mat-elevation-z8">
+
+        <!-- service Column -->
+        <ng-container matColumnDef="service">
+          <th mat-header-cell *matHeaderCellDef> Service </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.service}} </td>
+          <td mat-footer-cell *matFooterCellDef> Total </td>
+        </ng-container>
+      
+        <!-- Cost Column -->
+        <ng-container matColumnDef="cost">
+          <th mat-header-cell *matHeaderCellDef> Cost </th>
+          <td mat-cell *matCellDef="let transaction"> {{transaction.cost}} </td>
+          <td mat-footer-cell *matFooterCellDef>{{getTotalCost()}}  </td>
+        </ng-container>
+      
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+      </table>
+    </mat-card-content>
+
+    <div class="footer">
+      <div class="thank-you" style="flex: 1;">
+      <span>Thank You</span>
+    </div>
+
+    <span class="example-spacer"></span>
+
+    <div class="salon">
+      <span style="font-weight:600;">INVOICE FROM:</span>
+      <p>Salon Rinosha's <br> Y A Complex , Main Street , <br> Mawanella</p>
+    </div>  
+    </div>   
+</mat-card>
   
 </div>
 </div>

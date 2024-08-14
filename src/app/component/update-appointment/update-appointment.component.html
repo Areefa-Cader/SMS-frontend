@@ -49,7 +49,7 @@
             <div class="row">
               <mat-form-field appearance="outline">
                 <mat-label>Service</mat-label>
-                <mat-select formControlName="service" multiple (selectionChange)="confirmSelection($event.source)">
+                <mat-select formControlName="service" >
                   <mat-optgroup *ngFor="let group of serviceGroup" [label]="group.name">
                     <mat-option *ngFor="let service of group.service" [value]="service.value">
                       {{ service.viewValue }}
@@ -147,9 +147,7 @@
               </mat-card>
               <mat-card>
                 <p class="title">Services Booked:</p>
-                <li *ngFor="let serviceItem of service" style="padding-top:5px; padding-left: 9px;">
-                  {{serviceItem}}
-                </li>
+                <p>{{secondFormGroup.get('service')?.value}}</p>
               </mat-card>
               <mat-card>
                 <p class="title">Services Duration & Amount:</p>
@@ -165,6 +163,7 @@
           <div>
             <button mat-button matStepperPrevious>Back</button>
             <button mat-button (click)="stepper.reset()">Reset</button>
+            <button mat-button routerLink="/appointment">Cancel</button>
           </div>
         </mat-step>
       </mat-stepper>

@@ -34,7 +34,7 @@ export class UpdateServiceComponent implements OnInit{
     price : this.data.price
   });
 
-  this.getServices();
+  // this.getServices();
   }
 
   getServices(){

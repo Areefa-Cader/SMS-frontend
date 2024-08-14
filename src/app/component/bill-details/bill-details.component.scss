@@ -5,7 +5,6 @@
 .content{
     width: 50%;
     height: 100vh;
-    border: 2px solid black;
 }
 
 .details{
@@ -37,3 +36,90 @@
 mat-card-content{
     justify-content: space-around;
 }
+
+
+//preview
+
+.preview{
+    margin-left: 90px;
+    display: flex;
+    justify-content: center;
+    // width: 90%;
+    margin-top: 60px;
+
+    mat-card{
+        width: 90%;
+        margin-left: 60px;
+        margin-bottom: 100px; 
+        
+    }
+
+    
+  }
+  
+  .header{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  
+  .logo{
+    width: 80px;
+    height: 80px;
+    margin-right: 200px;
+    margin-left: 25px;
+    margin-top: 10px;
+    
+  }
+  
+  .title{
+    flex: 1;
+    margin-right: 10px;
+    font-size: 30px;
+    margin-top: 10px;
+    margin-right: 25px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight:300;
+  }
+  table {
+    width: 100%;
+    th{
+      background-color:#ED9BA5 ;
+    }
+  }
+  
+  tr.mat-mdc-footer-row td {
+    font-weight: bold;
+  }
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  
+  .customer-details{
+    flex: 1;
+    margin-left: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding-right: 30px;
+   
+  }
+  .details2{
+    flex: 1;
+    margin-right: 5px;
+    margin-bottom: 40px;
+    padding-left: 30px;
+  }
+  .footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 20px;
+  }
+  .salon{
+    flex: 1;
+  }
+  .thank-you{
+    margin-left: 25px;
+    font-size: 20px;
+  }
+  

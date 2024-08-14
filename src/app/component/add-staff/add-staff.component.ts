@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms"
 import { MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-staff',
@@ -26,7 +27,7 @@ export class AddStaffComponent implements OnInit{
   ]
 
   constructor(private httpClient:HttpClient, private dialogRef:MatDialogRef<AddStaffComponent>,
-    private toastr:ToastrService, private datePipe:DatePipe
+    private toastr:ToastrService, private datePipe:DatePipe, private router:Router
   ){
 
   }
@@ -74,7 +75,9 @@ export class AddStaffComponent implements OnInit{
           this.toastr.error(res.error);
         }
        
-      })
+      });
+    }else{
+       this.toastr.warning('Please fill the required fields');
     }
     console.log(this.submit.value);
   }
@@ -82,7 +85,7 @@ export class AddStaffComponent implements OnInit{
 
 
   closeDialog(){
-
+    this.dialogRef.close();
   }
 
 }

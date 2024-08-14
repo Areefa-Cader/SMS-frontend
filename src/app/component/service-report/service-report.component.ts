@@ -7,7 +7,7 @@ import { Component, computed, Input, signal } from '@angular/core';
 })
 export class ServiceReportComponent {
   panelOpenState = false;
-   sideNavCollapsed = signal(false);
+   sideNavCollapsed = signal(true);
   
 
    profileSize = computed(()=>this.sideNavCollapsed() ? '50' : '70');

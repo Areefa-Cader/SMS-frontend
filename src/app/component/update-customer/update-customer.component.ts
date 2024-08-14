@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-update-customer',
@@ -27,7 +28,7 @@ export class UpdateCustomerComponent implements OnInit{
   })
 
   constructor(@Inject(MAT_DIALOG_DATA) public data:any, private httpClient:HttpClient,
-  private dialog:MatDialog, private dialogRef:DialogRef
+  private dialog:MatDialog, private dialogRef:DialogRef, private toaster:ToastrService
   ){
 
   }
@@ -58,12 +59,14 @@ export class UpdateCustomerComponent implements OnInit{
 
   updateCustomer(){
     if(this.update.valid){
+      console.log(this.update.value);
+      
       this.httpClient.put('http://127.0.0.1:8000/api/updateCustomer/' + this.data.id , this.update.value).subscribe(
         (res)=>{
           console.log(res);
           this.dialogRef.close(UpdateCustomerComponent);
           this.getCustomer();
-          alert('updated successfully');
+          this.toaster.success('updated successfully');
 
           
 

@@ -193,31 +193,29 @@ export class AddAppointmentComponent implements OnInit {
   }
 
   updateServiceDetails(selectedServices: any) {
-    let totalDuration = 0;
-    let totalPrice = 0;
 
-    selectedServices.forEach((serviceName: string) => {
-      const selectedService = this.serviceList.find(service => service.service_name === serviceName);
-      if (selectedService) {
-        totalDuration += this.utilityService.convertDurationToSeconds(selectedService.duration);
-        totalPrice += parseFloat(selectedService.price);
-      }
-    });
+    const selectedServiceDetails = this.serviceList.find(service=>service.service_name === selectedServices);
 
-    const totalDurationReadable = this.utilityService.convertTimeToReadableFormat(
-      new Date(totalDuration * 1000).toISOString().substr(11, 8)
-    );
+    if(selectedServiceDetails){
+      const totalDuration = this.utilityService.convertDurationToSeconds(selectedServiceDetails.duration);
+      const totalPrice = parseFloat(selectedServiceDetails.price);
+
+      const totalDurationReadable = this.utilityService.convertTimeToReadableFormat(
+        new Date(totalDuration *1000).toISOString().substr(11,8)
+      );
+    
 
     this.secondFormGroup.patchValue({
       duration: totalDurationReadable,
       price: totalPrice.toFixed(2)
     });
   }
-
-  confirmSelection(select: MatSelect) {
-    select.close();
-    this.updateServiceDetails(this.secondFormGroup.get('service')?.value);
   }
+
+  // confirmSelection(select: MatSelect) {
+  //   select.close();
+  //   this.updateServiceDetails(this.secondFormGroup.get('service')?.value);
+  // }
 
   onConfirm(){
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff) {
@@ -238,16 +236,22 @@ export class AddAppointmentComponent implements OnInit {
       this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails', customerData).subscribe(
         (customerRes: any) => {
           const customerId = customerRes.customer.id;
-  
+
+          const selectedService = this.serviceList.find(service => service.service_name === selectedServices);
+
+         
+          
+          if(selectedService){
           const appointmentData = {
             customer_id: customerId,
-            service_id:selectedServices,
+            service_id:selectedService.id,
             staff_id: this.selectedStaff.id,
             date: this.selectedDate,
             time: this.selectedTimes,
             price: this.secondFormGroup.value.price,
           };
 
+          console.log(selectedService.id);
           
   
           this.httpClient.post('http://127.0.0.1:8000/api/addAppointment', appointmentData).subscribe(
@@ -265,6 +269,9 @@ export class AddAppointmentComponent implements OnInit {
               this.toastr.error('Error creating appointment');
             }
           );
+        }else{
+          this.toastr.error('service is not found');
+        }
         },
         (error: any) => {
           console.error(error);
