@@ -17,12 +17,16 @@ interface Transaction {
 })
 export class BillDetailsComponent implements OnInit{
 
+  advance_payment: number = 100; // Example initial value
+  isEditing: boolean = false;
+  newAdvancePayment: any;
+
   invoiceId : any;
   customer_name :any ='';
   due_date :any ='';
   service_name:any ='';
   total_amount:any ='';
-  advance_payment:any ='';
+  // advance_payment:any ='';
   issue_date:any='';
 
 
@@ -75,8 +79,29 @@ getAllInvoiceDetails(id:any){
   getTotalCost(){
     return this.transactions.reduce((acc, transaction) => acc + transaction.cost, '');
   }
-  
+
+
+  startEdit(): void {
+    this.isEditing = true;
+    this.newAdvancePayment = this.advance_payment;
+  }
+
+  // Method to save the updated amount
+  saveEdit(): void {
+    if (this.newAdvancePayment !== undefined) {
+      this.advance_payment = this.newAdvancePayment;
+      // Optionally make an API call here to save the new value to the backend
+    }
+    this.isEditing = false;
+  }
+
+  // Method to cancel the edit
+  cancelEdit(): void {
+    this.isEditing = false;
+  }
 }
+  
+
   
 
 

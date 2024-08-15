@@ -156,7 +156,7 @@
             <span class="title">Role</span>
             <span>{{role}}</span>
         </mat-card><br>
-        <mat-form-field appearance="outline" >
+        <!-- <mat-form-field appearance="outline" >
             <mat-label>Enter the leave date</mat-label>
             <mat-date-range-input [rangePicker]="picker">
               <input matStartDate placeholder="Start date">
@@ -164,16 +164,16 @@
             </mat-date-range-input>
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-date-range-picker #picker></mat-date-range-picker>
-          </mat-form-field>
+          </mat-form-field> -->
 
-          <br>
+          <!-- <br>
           <br>
           <span>
           <mat-slide-toggle [(ngModel)]="isChecked">Available: {{status}}</mat-slide-toggle>
-          </span>
-          <br>
+          </span> -->
+        
           <button mat-raised-button class="update" style="background-color:#ED9BA5;" (click)="updateBox()">Edit</button><br>
-          <button mat-raised-button class="update">Cancel</button>
+          <!-- <button mat-raised-button class="update">Cancel</button> -->
 
     </div>
 

@@ -17,7 +17,7 @@ import { Router } from '@angular/router';
 export class InvoiceListComponent implements OnInit{
  
 
-  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','advance_payment','issue_date','due_date','status','action'];
+  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','issue_date','due_date','status','action'];
   dataSource!:MatTableDataSource<any>;
   
 

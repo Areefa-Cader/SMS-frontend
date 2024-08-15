@@ -15,6 +15,8 @@ import { Router } from '@angular/router';
 export class AddStaffComponent implements OnInit{
   @Output() staffAdded = new EventEmitter<void>();
 
+  staffs :any[] =[];
+
   hide= true;
   date : any;
 
@@ -53,8 +55,9 @@ export class AddStaffComponent implements OnInit{
 
 
   getAllStaff(){
-    this.httpClient.get('http://127.0.0.1:8000/api/getStaff').subscribe((res)=>{
+    this.httpClient.get('http://127.0.0.1:8000/api/getStaff').subscribe((res:any)=>{
       console.log(res);
+      this.staffs = res;
     })
   }
 

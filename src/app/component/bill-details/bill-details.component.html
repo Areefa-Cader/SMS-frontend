@@ -23,9 +23,23 @@
 
         </mat-card><br>
 
-        <mat-label>Advance_payment</mat-label><br>
+        <mat-label>Advance payment</mat-label><br>
         <mat-card  appearance="outlined">
-            <span class="value">{{advance_payment}}  <mat-icon style="float: right; color: #1365B8;">edit</mat-icon></span> 
+            <span class="value" *ngIf="!isEditing">{{advance_payment}}  <mat-icon style="float: right; color: #1365B8; cursor: pointer;"
+              (click)="startEdit()">edit</mat-icon></span> 
+
+              <span *ngIf="isEditing">
+                <input matInput [(ngModel)]="newAdvancePayment" type="number">
+                <mat-icon 
+                  style="float: right; color: green; cursor: pointer;" 
+                  (click)="saveEdit()">check
+                </mat-icon>
+                <mat-icon 
+                  style="float: right; color: red; cursor: pointer; margin-right: 8px;" 
+                  (click)="cancelEdit()">close
+                </mat-icon>
+              </span>
+            
     
           </mat-card><br>
 

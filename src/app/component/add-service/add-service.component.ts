@@ -13,6 +13,8 @@ import { ToastrService } from 'ngx-toastr';
 export class AddServiceComponent implements OnInit{
   @Output() serviceAdded = new EventEmitter<void>();
 
+  services : any[] =[];
+
   storeService = new FormGroup({
     service_name:new FormControl('',Validators.required ),
     service_category: new FormControl('',Validators.required ),
@@ -33,8 +35,9 @@ export class AddServiceComponent implements OnInit{
   }
 
   getAllservices(){
-    this.httpClient.get('http://127.0.0.1:8000/api/getAllService').subscribe((res)=>{
+    this.httpClient.get('http://127.0.0.1:8000/api/getAllService').subscribe((res:any)=>{
       console.log(res);
+      this.services = res;
       
     })
   }
@@ -43,19 +46,23 @@ export class AddServiceComponent implements OnInit{
       (res:any)=>{
         console.log(res);
         if(res.message){
-          this.toastr.success(res.message);
           this.dialogRef.close(AddServiceComponent);
+          this.router.navigate(['/service']);
+          this.getAllservices();
+          this.toastr.success(res.message);
+          
+          
+
         }else{
           this.toastr.error(res.error);
         }
-        this.serviceAdded.emit();
-        this.getAllservices();
       }
     )
   }
 
   dialogBoxClose(){
     this.dialogRef.close(AddServiceComponent);
+
   }
 
 

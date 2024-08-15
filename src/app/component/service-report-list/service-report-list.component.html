@@ -10,33 +10,31 @@
     <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Report No</th>
         <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        <td mat-footer-cell *matFooterCellDef> Total </td>
       </ng-container>
   
       <!-- Service Name Column -->
       <ng-container matColumnDef="service_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Service Name</th>
         <td mat-cell *matCellDef="let element">{{element.service_name}}</td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
       </ng-container>
   
       <!-- Service Category Column -->
       <ng-container matColumnDef="service_category">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Service Category</th>
         <td mat-cell *matCellDef="let element">{{element.service_category}}</td>
+
       </ng-container>
 
        <!-- Service Category Column -->
-       <ng-container matColumnDef="service_amount">
+       <ng-container matColumnDef="service_price">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Service Amount</th>
-        <td mat-cell *matCellDef="let element">{{element.service_amount}}</td>
+        <td mat-cell *matCellDef="let element">{{element.service_price}}</td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
       </ng-container>
   
       <!-- Customer Name Column -->
-      <ng-container matColumnDef="customer_name">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
-        <td mat-cell *matCellDef="let element">{{element.customer_name}}</td>
-      </ng-container>
-  
-      <!-- Staff Name Column -->
       <ng-container matColumnDef="staff_name">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Staff Name</th>
         <td mat-cell *matCellDef="let element">{{element.staff_name}}</td>

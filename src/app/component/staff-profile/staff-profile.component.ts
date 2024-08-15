@@ -60,7 +60,7 @@ username:any ='';
     private dialog:MatDialog,
     
     ) {
-    this.profilePic = localStorage.getItem('profilePic') || 'assets/profile.png';
+    this.profilePic = 'assets/profile.png';
   }
 
   ngOnInit(): void {
@@ -136,10 +136,6 @@ username:any ='';
   }
 
 
- getProfile(){
-  
-   
- }
 
  updateBox(){
   const dialogRef = this.dialog.open(UpdateStaffComponent, {
@@ -150,22 +146,23 @@ username:any ='';
       'contact_no':this.contact_no,
       'role':this.role
     }
+
+
+
     
     
   });
 
   
-  
-
-  dialogRef.afterClosed().subscribe(result => {
-    console.log(result);
+  dialogRef.afterClosed().subscribe(data => {
+    console.log(data);
     
-    if (result) {
+    if (data) {
       // If the dialog returns updated data, update the profile with it
-      this.fullname= result.fullname;
-      this.email = result.email;
-      this.contact_no = result.contact_no;
-      this.role = result.role;
+      this.fullname= data.fullname;
+      this.email = data.email;
+      this.contact_no = data.contact_no;
+      this.role = data.role;
     }
   });
 
