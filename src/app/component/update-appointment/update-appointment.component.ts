@@ -306,7 +306,12 @@ export class UpdateAppointmentComponent implements OnInit{
         
       })
 
+    
      
+  }
+
+  closeUpdate(){
+    this.dialogRef.close(UpdateAppointmentComponent);
   }
 
   //timeslots

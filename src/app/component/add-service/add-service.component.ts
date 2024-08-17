@@ -23,7 +23,7 @@ export class AddServiceComponent implements OnInit{
 });
 
   constructor(private httpClient: HttpClient, private router:Router, 
-    private dialogRef:DialogRef, private toastr: ToastrService){
+    private dialogRef:DialogRef<AddServiceComponent>, private toastr: ToastrService){
 
   }
 
@@ -46,22 +46,23 @@ export class AddServiceComponent implements OnInit{
       (res:any)=>{
         console.log(res);
         if(res.message){
-          this.dialogRef.close(AddServiceComponent);
+          this.dialogRef.close();
           this.router.navigate(['/service']);
           this.getAllservices();
           this.toastr.success(res.message);
           
-          
-
         }else{
           this.toastr.error(res.error);
+          // this.toastr.warning('please fill the required field');
         }
       }
+      
     )
+   
   }
 
   dialogBoxClose(){
-    this.dialogRef.close(AddServiceComponent);
+    this.dialogRef.close();
 
   }
 

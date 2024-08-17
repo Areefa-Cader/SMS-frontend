@@ -49,12 +49,20 @@ export class AddCustomerComponent implements OnInit{
     if(this.saveCustomer.valid){
     this.httpClient.post('http://127.0.0.1:8000/api/addCustomer', this.saveCustomer.value).subscribe((res:any)=>{
        console.log(res);
+       if(res.message){
        this.toastr.success(res.message);
        this.getAllCustomer();
        this.dialogRef.close();
+       }else{
+        this.toastr.error(res.error);
+       }
        
-    })
+    });
+  }else{
+      this.toastr.warning('please fill the required fields');
   }
 
 }
+
+
 }

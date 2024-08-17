@@ -8,6 +8,13 @@ import { ViewInvoiceComponent } from '../view-invoice/view-invoice.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { BillDetailsComponent } from '../bill-details/bill-details.component';
 import { Router } from '@angular/router';
+import { FormControl, FormGroup } from '@angular/forms';
+
+
+interface Transaction {
+  value: string;
+  viewValue: string;
+}
 
 @Component({
   selector: 'app-invoice-list',
@@ -15,6 +22,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./invoice-list.component.scss']
 })
 export class InvoiceListComponent implements OnInit{
+
+  transactionForm = new FormGroup({
+    transactionControl: new FormControl('Pending')
+  });
+
+  transaction: any[] = [
+    {value: 'Pending', viewValue: 'Pending'},
+    {value: 'Paid', viewValue: 'Paid'},
+  ];
  
 
   displayedColumns: any[] = ['id','customer_name','service_name','total_amount','issue_date','due_date','status','action'];

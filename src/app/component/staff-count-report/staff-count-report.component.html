@@ -51,7 +51,9 @@
   
     <mat-sidenav-content class="content"[style.margin-left]="sidenavwidth()">
       <!-- toolbar -->
-      <mat-toolbar class='mat-elevation-z3' class="header">
+      <mat-toolbar class='mat-elevation-z3' class="header"> 
+        <mat-icon routerLink="/report" style="cursor: pointer;">chevron_left</mat-icon>
+
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="collapsed.set(!collapsed())">
         <mat-icon>menu</mat-icon>
         </button>

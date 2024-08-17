@@ -74,13 +74,14 @@ export class AddStaffComponent implements OnInit{
           this.getAllStaff();
           this.dialogRef.close();
           
-        }else if(res.error){
+        }else{
           this.toastr.error(res.error);
         }
        
       });
     }else{
        this.toastr.warning('Please fill the required fields');
+      //  this.submit.markAllAsTouched();
     }
     console.log(this.submit.value);
   }

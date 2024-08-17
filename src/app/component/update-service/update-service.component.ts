@@ -48,15 +48,21 @@ export class UpdateServiceComponent implements OnInit{
     this.httpClient.put('http://127.0.0.1:8000/api/updateService/' + this.data.id, this.service.value)
     .subscribe((res:any)=>{
       console.log(res);
-      this.toastr.success(res.message);
-      this.dialogRef.close(true);
-      this.router.navigate(['/service']);
+      if(res.message){
+        this.toastr.success(res.message);
+        this.dialogRef.close(true);
+        this.router.navigate(['/service']);
+      }else{
+        this.toastr.error('error while updating');
+      }
+     
     })
+    
   }
 
   closeUpdateBox(){
     this.dialogRef.close(UpdateServiceComponent);
-    this.serviceUpdated.emit(); 
+    // this.serviceUpdated.emit(); 
   }
 
 }

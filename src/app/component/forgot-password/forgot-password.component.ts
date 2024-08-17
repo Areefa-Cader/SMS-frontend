@@ -35,9 +35,10 @@ export class ForgotPasswordComponent implements OnInit {
     this.httpClient.post('http://127.0.0.1:8000/api/sendEmailLink', form).subscribe((res:any)=>{
       console.log(res);
       this.email = '';
-      // if(res.message){
-      //   this.toastr.success(res.message);
-      // }else{
+      if(res.message){
+        this.toastr.success(res.message);
+      }
+      // else{
       //  this.toastr.error(res.error);
       // }
       

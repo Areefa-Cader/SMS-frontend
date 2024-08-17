@@ -1,6 +1,6 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, OnInit, inject } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output, inject } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
@@ -12,7 +12,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class UpdateCustomerComponent implements OnInit{
 
-   
+  @Output() customerUpdated = new EventEmitter<void>()   
   gender : any[]=[
     'Male',
     'Female'

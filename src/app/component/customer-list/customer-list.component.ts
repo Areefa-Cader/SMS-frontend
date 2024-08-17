@@ -49,7 +49,12 @@ export class CustomerListComponent implements OnInit{
 
   update(data:any){
     const dialogRef = this.dialog.open(UpdateCustomerComponent,{
-      data,
+      data
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      // Force refresh the data after closing the dialog
+      this.getCustomer();
     });
   }
 

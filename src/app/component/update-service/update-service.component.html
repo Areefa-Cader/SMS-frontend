@@ -4,7 +4,7 @@
     </mat-card-title>
 
     <mat-card-content>
-        <form [formGroup]="service" (ngSubmit)="updateService()">
+        <form [formGroup]="service" >
             <div class="row">
             <mat-form-field appearance="outline">
                 <mat-label>Service Name</mat-label>
@@ -36,7 +36,7 @@
             </div>
             <div class="button-area">
                 <button mat-raised-button (click)="closeUpdateBox()">Cancel</button> &nbsp;&nbsp;
-                <button mat-raised-button style="background-color: #ED9BA5 ;" >Update</button>
+                <button mat-raised-button style="background-color: #ED9BA5 ;" (click)="updateService()">Update</button>
             </div>
 
         </form> 

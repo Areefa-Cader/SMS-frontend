@@ -66,13 +66,16 @@ getAllStaff(){
   updateStaff(){
     if(this.update.valid){  
         this.httpClient.put('http://127.0.0.1:8000/api/updateStaff/' + this.data.id , this.update.value).
-        subscribe((res)=>{
-          console.log(this.update.value);
+        subscribe((res :any)=>{
           console.log(res);
+          if(res.message){
           this.toastr.success('updated successfully');
           this.getAllStaff();
           
           this.dialogRef.close(true);
+          }else{
+            this.toastr.error(res.error);
+          }
         })
      
   

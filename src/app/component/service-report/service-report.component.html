@@ -26,10 +26,10 @@
               </mat-list-item>
           
               <!-- Customer -->
-              <mat-list-item role="listitem" >
+              <!-- <mat-list-item role="listitem" >
                   <mat-icon matListItemIcon>attach_money</mat-icon>
                   <span matListItemTitle>Daily Income</span>
-              </mat-list-item>
+              </mat-list-item> -->
           
                
           
@@ -53,6 +53,7 @@
     <mat-sidenav-content class="content"[style.margin-left]="sidenavwidth()">
       <!-- toolbar -->
       <mat-toolbar class='mat-elevation-z3' class="header">
+        <mat-icon routerLink="/report" style="cursor: pointer;">chevron_left</mat-icon>
         <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon" (click)="collapsed.set(!collapsed())">
         <mat-icon>menu</mat-icon>
         </button>

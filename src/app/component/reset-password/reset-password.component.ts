@@ -46,12 +46,14 @@ export class ResetPasswordComponent implements OnInit{
       if(res.message){
         // this.toastr.success(res.message)
         this.dialog.open(SuccessPasswordComponent);
-      }else{
-        this.toastr.error(res.error);
       }
 
       
-    })
+    }, (error:any)=>{
+      console.log(error);
+      this.toastr.error(error);
+    }
+  )
   }
 
  
