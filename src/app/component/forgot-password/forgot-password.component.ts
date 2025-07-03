@@ -38,9 +38,9 @@ export class ForgotPasswordComponent implements OnInit {
       if(res.message){
         this.toastr.success(res.message);
       }
-      // else{
-      //  this.toastr.error(res.error);
-      // }
+      else{
+       this.toastr.error(res.error);
+      }
       
     },
     (error:any)=>{

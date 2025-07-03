@@ -27,6 +27,8 @@ import { ResetPasswordComponent } from './component/reset-password/reset-passwor
 import { StaffDashboardComponent } from './component/staff-dashboard/staff-dashboard.component';
 import { NotificationComponent } from './component/notification/notification.component';
 import { BillDetailsComponent } from './component/bill-details/bill-details.component';
+import { AppointmentReportComponent } from './component/appointment-report/appointment-report.component';
+import { IncomeReportComponent } from './component/income-report/income-report.component';
 
 const routes: Routes = [
   {path:'home', component:HomeComponent},
@@ -48,9 +50,11 @@ const routes: Routes = [
   {path:'invoice',component:InvoiceComponent},
   {path:'view-invoice',component:ViewInvoiceComponent},
   {path:'report',component:ReportComponent},
-  { path: 'admin/dashboard', component: MainDashboardComponent},
+  {path: 'admin/dashboard', component: MainDashboardComponent},
   {path:'service-report',component:ServiceReportComponent},
   {path:'staff-count-report',component:StaffCountReportComponent},
+  {path:'appointment-report', component:AppointmentReportComponent},
+  {path:'income-report',component:IncomeReportComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'staff-profile',component:StaffProfileComponent},
   {path:'reset-password',component:ResetPasswordComponent},

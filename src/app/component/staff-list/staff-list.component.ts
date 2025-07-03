@@ -85,12 +85,17 @@ export class StaffListComponent {
   updateBox(data : any){
     const dialogRef = this.dialog.open(UpdateStaffComponent, {
       data,
-      
     });
-
     
+
+     dialogRef.afterClosed().subscribe(() => {
+      // Force refresh the data after closing the dialog
+      this.getAllStaff();
+    });
    
     
   }
+
+  
 
 }

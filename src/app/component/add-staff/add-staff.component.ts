@@ -72,7 +72,7 @@ export class AddStaffComponent implements OnInit{
         if(res.message){
           this.toastr.success('Successfully Added');
           this.getAllStaff();
-          this.dialogRef.close();
+          this.dialogRef.close(true);
           
         }else{
           this.toastr.error(res.error);

@@ -15,6 +15,10 @@ import { ToastrService } from 'ngx-toastr';
   styleUrls: ['./appointment-list.component.scss']
 })
 export class AppointmentListComponent implements OnInit{
+
+  fromDate! : Date;
+  toDate! : Date;
+
   data={
     id:'',
     cusName :'',

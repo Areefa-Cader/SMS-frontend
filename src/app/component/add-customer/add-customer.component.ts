@@ -51,8 +51,8 @@ export class AddCustomerComponent implements OnInit{
        console.log(res);
        if(res.message){
        this.toastr.success(res.message);
-       this.getAllCustomer();
-       this.dialogRef.close();
+      //  this.getAllCustomer();
+       this.dialogRef.close(true);
        }else{
         this.toastr.error(res.error);
        }
@@ -62,6 +62,10 @@ export class AddCustomerComponent implements OnInit{
       this.toastr.warning('please fill the required fields');
   }
 
+}
+
+close(){
+  this.dialogRef.close();
 }
 
 

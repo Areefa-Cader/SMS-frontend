@@ -31,6 +31,7 @@ export class StaffRegisterComponent implements OnInit {
   dob:any='';
   username:any='';
   password:any='';
+  dobInvalid:boolean = false;
 
 
   constructor(private httpClient:HttpClient, private toastr:ToastrService, 
@@ -50,8 +51,26 @@ export class StaffRegisterComponent implements OnInit {
     })
   }
 
+  validate(){
+
+    if(this.dob){
+      const selectedYear = new Date (this.dob).getFullYear();
+      this.dobInvalid = selectedYear > 2005;
+      return !this.dobInvalid;
+    }
+
+    this.dobInvalid = true;
+    return false;
+
+  }
+
 
   staffRegister(){
+
+    if(!this.validate()){
+      this.toastr.error("Date of the Birth must be before 2006");
+      return;
+    }
 
 
     let staff ={

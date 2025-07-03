@@ -35,9 +35,13 @@
                    
                 <mat-form-field>
                     <mat-label>Date of Birth</mat-label>
-                    <input matInput [matDatepicker]="picker"  name="DOB" placeholder="Date of Birth" [(ngModel)]="dob" required>
+                    <input matInput [matDatepicker]="picker"  name="DOB" placeholder="Date of Birth" [(ngModel)]="dob" (dateChange)="validate()" required>
                     <mat-error *ngIf="!dob">
                       Date of Birth is required
+                    </mat-error>
+
+                    <mat-error *ngIf="dobInvalid">
+                      Date must be before the year 2006
                     </mat-error>
                     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>

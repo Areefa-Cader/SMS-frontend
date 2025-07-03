@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, computed, OnInit, signal, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef } from '@angular/material/dialog';
 import { MatMenu } from '@angular/material/menu';
 import { AuthService } from 'src/app/auth.service';
 import { UpdateStaffComponent } from '../update-staff/update-staff.component';
@@ -139,20 +139,15 @@ username:any ='';
 
  updateBox(){
   const dialogRef = this.dialog.open(UpdateStaffComponent, {
-    data: {
+    data : {
       'id':this.authService.getLoggedInUserId(),
       'fullname' : this.fullname,
       'email':this.email,
       'contact_no':this.contact_no,
       'role':this.role
-    }
-
-
-
-    
+    } 
     
   });
-
   
   dialogRef.afterClosed().subscribe(data => {
     console.log(data);
@@ -167,4 +162,5 @@ username:any ='';
   });
 
 }
+
 }

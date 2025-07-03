@@ -6,6 +6,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { UpdateCustomerComponent } from '../update-customer/update-customer.component';
 import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.component';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-customer-list',
@@ -13,6 +14,9 @@ import { ConfirmationBoxComponent } from '../confirmation-box/confirmation-box.c
   styleUrls: ['./customer-list.component.scss']
 })
 export class CustomerListComponent implements OnInit{
+  getAllStaff() {
+    throw new Error('Method not implemented.');
+  }
   customer = {
     id : "",
     fullname : "",
@@ -29,7 +33,7 @@ export class CustomerListComponent implements OnInit{
     @ViewChild(MatSort) sort!: MatSort;
 
 
-  constructor(private httpClient:HttpClient, private dialog:MatDialog){
+  constructor(private httpClient:HttpClient, private dialog:MatDialog, private toastr:ToastrService){
 
   }  
   
@@ -65,8 +69,9 @@ export class CustomerListComponent implements OnInit{
       if(result){
         if(result === true){
           console.log(result);
-          this.httpClient.delete('http://127.0.0.1:8000/api/deleteCustomer/' + id).subscribe((res)=>{
+          this.httpClient.delete('http://127.0.0.1:8000/api/deleteCustomer/' + id).subscribe((res:any)=>{
             console.log(res);
+            this.toastr.success(res.message);
             this.getCustomer();
           },
           (error)=>{

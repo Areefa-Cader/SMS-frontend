@@ -1,6 +1,8 @@
-import { Component, computed, signal } from '@angular/core';
+import { Component, computed, signal, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddStaffComponent } from '../add-staff/add-staff.component';
+import { StaffListComponent } from '../staff-list/staff-list.component';
+import { CustomerListComponent } from '../customer-list/customer-list.component';
 
 @Component({
   selector: 'app-staff',
@@ -8,6 +10,7 @@ import { AddStaffComponent } from '../add-staff/add-staff.component';
   styleUrls: ['./staff.component.scss']
 })
 export class StaffComponent {
+  @ViewChild(StaffListComponent) staffListComponent!: StaffListComponent;
 
   collapsed = signal(true);
   sidenavwidth = computed(()=>this.collapsed() ? '65px':'200px');
@@ -19,9 +22,13 @@ export class StaffComponent {
  }
 
  openAddStaff(){
-  this.dialog.open(AddStaffComponent);
+  const dialogRef = this.dialog.open(AddStaffComponent);
 
- 
+ dialogRef.afterClosed().subscribe(result =>{
+   if(result === true){
+    this.staffListComponent.getAllStaff();
+   }
+ })
 
  }
 

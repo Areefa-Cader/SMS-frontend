@@ -8,7 +8,7 @@ import { ViewInvoiceComponent } from '../view-invoice/view-invoice.component';
 import { InvoiceComponent } from '../invoice/invoice.component';
 import { BillDetailsComponent } from '../bill-details/bill-details.component';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 
 interface Transaction {
@@ -23,17 +23,17 @@ interface Transaction {
 })
 export class InvoiceListComponent implements OnInit{
 
-  transactionForm = new FormGroup({
-    transactionControl: new FormControl('Pending')
-  });
-
-  transaction: any[] = [
-    {value: 'Pending', viewValue: 'Pending'},
-    {value: 'Paid', viewValue: 'Paid'},
-  ];
  
 
-  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','issue_date','due_date','status','action'];
+  transaction: any[]=[
+    {value:"pending", viewValue:"pending"},
+    {value:"paid", viewValue:"paid"},
+   
+  ]
+
+ 
+
+  displayedColumns: any[] = ['id','customer_name','service_name','total_amount','issue_date','due_date','action'];
   dataSource!:MatTableDataSource<any>;
   
 
@@ -84,5 +84,13 @@ export class InvoiceListComponent implements OnInit{
     
       this.router.navigate(['/bill-details', invoiceId]);
   }
+
+
+  // addStatus(){
+  //   this.httpClient.post('http://127.0.0.1:8000/api/addstatus',this.submit.value).subscribe((res:any)=>{
+  //     console.log(res);
+      
+  //   })
+  // }
 
 }

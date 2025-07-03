@@ -1,0 +1,101 @@
+.example-spacer {
+    flex: 1 1 auto;
+  }
+  .header{
+    height: 42px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index:5;
+  }
+  
+  .user-icon{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+  }
+  .user-role{
+  margin-top: -10px;
+  font-size: 0.7rem;
+  color: black;
+  margin-top: 10px;
+  }
+  
+  
+  .content{
+    padding: 24px;
+  }
+  mat-sidenav-container{
+   height: 100vh;
+  }
+  mat-sidenav, mat-sidenav-content{
+    transition: all 500ms ease-in-out;
+  }
+  .button{
+    background: none;
+    margin-top:-20px;
+   }
+   .add-button{
+    margin-bottom: 20px;
+   background-color: #ED9BA5;
+   color: black;
+    
+   }
+
+
+   //side nav
+
+   :host *{
+    transition: all 500ms ease-in-out;
+  }
+  
+  .sidenav-header{
+      padding-top: 8px;
+      text-align: center;
+       img{
+        object-fit: cover;
+      }
+      .logo-text{
+        height: 3rem;
+        h2{
+          margin: 0;
+          font-size:1rem;
+          margin-top:-1rem;
+          color: #ED9BA5;
+        }
+      }
+    }
+    .hide-header-text{
+      opacity: 0;
+      height: 0;
+    }
+    mat-list-item:hover{
+       border-left: 7px solid;
+       border-left-color: #ED9BA5;
+        span,mat-icon{
+          color: #ED9BA5;
+        }
+          
+    }
+  .icon{
+    color: #492E26;
+  }
+  .active-link {
+    background-color:#ED9BA5 ; /* Change this to your desired active color */
+    span,mat-icon{
+      color:white;
+  
+    }
+    
+  }
+  .active-link:hover{
+    mat-icon{
+      color: white;
+    }
+  }
+  mat-divider{
+    margin-top: 30px;
+  }  
+  
+    

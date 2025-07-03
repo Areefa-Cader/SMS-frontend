@@ -44,7 +44,7 @@ export class ResetPasswordComponent implements OnInit{
     this.httpClient.post('http://127.0.0.1:8000/api/changePassword', form).subscribe((res:any)=>{
       console.log(res);
       if(res.message){
-        // this.toastr.success(res.message)
+        this.toastr.success(res.message)
         this.dialog.open(SuccessPasswordComponent);
       }
 

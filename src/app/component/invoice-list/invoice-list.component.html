@@ -52,25 +52,16 @@
       </ng-container> -->
 
       <!-- status Column -->
-      <ng-container matColumnDef="status">
+      <!-- <ng-container matColumnDef="status">
         <th mat-header-cell *matHeaderCellDef mat-sort-header>Bill Status </th>
-        <td mat-cell  *matCellDef="let invoice"> 
+        <td mat-cell  *matCellDef="let invoice">  -->
           <!-- <button mat-raised-button style="background-color: #FFC30F;">
             Pending...
           </button> -->
           
-          <form [formGroup]="transactionForm">
-            <!-- <mat-form-field> -->
-              <mat-select formControlName="transactionControl">
-                <mat-option *ngFor="let val of transaction" [value]="val.value">
-                  {{ val.viewValue }}
-                </mat-option>
-              </mat-select>
-            <!-- </mat-form-field> -->
-          </form>
-        
+<!--         
            </td>
-      </ng-container>
+      </ng-container> -->
 
        <!-- Action Column -->
        <ng-container matColumnDef="action">
@@ -95,4 +86,7 @@
     </table>
   
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+
   </div>
+
+

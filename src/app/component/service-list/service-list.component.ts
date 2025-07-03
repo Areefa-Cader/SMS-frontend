@@ -75,8 +75,14 @@ export class ServiceListComponent implements OnInit{
     const dialogRef = this.dialog.open(UpdateServiceComponent,{
       data,
     }
-    )
-  }
+    );
+
+         dialogRef.afterClosed().subscribe(() => {
+      // Force refresh the data after closing the dialog
+      this.getAllServices();
+  });
+
+}
 
   delete(id:any){
     const dialogRef = this.dialog.open(ConfirmationBoxComponent);

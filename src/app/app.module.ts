@@ -61,6 +61,11 @@ import { SuccessPasswordComponent } from './component/success-password/success-p
 import {CurrencyPipe} from '@angular/common';
 import { NotificationComponent } from './component/notification/notification.component';
 import { BillDetailsComponent } from './component/bill-details/bill-details.component';
+import { AppointmentReportComponent } from './component/appointment-report/appointment-report.component';
+import { AppointmentReportListComponent } from './component/appointment-report-list/appointment-report-list.component';
+import { IncomeReportComponent } from './component/income-report/income-report.component';
+import { IncomeReportListComponent } from './component/income-report-list/income-report-list.component';
+
 
 
 
@@ -114,7 +119,11 @@ import { BillDetailsComponent } from './component/bill-details/bill-details.comp
     SuccessPasswordComponent,
     NotificationComponent,
     BillDetailsComponent,
-    
+    AppointmentReportComponent,
+    AppointmentReportListComponent,
+    IncomeReportComponent,
+    IncomeReportListComponent,
+  
     
    
   ],

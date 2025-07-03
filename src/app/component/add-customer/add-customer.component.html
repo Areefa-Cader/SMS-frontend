@@ -3,7 +3,7 @@
         New Customer
     </mat-card-title>
     <mat-card-content>
-        <form [formGroup]="saveCustomer" (ngSubmit)="addCustomer()">
+        <form [formGroup]="saveCustomer" >
 
             <div class="row">
                 <mat-form-field appearance="outline">
@@ -45,8 +45,8 @@
     
             </div>
             <div class="button-area">
-                <button mat-raised-button>Cancel</button> &nbsp;&nbsp;
-                <button mat-raised-button style="background-color: #ED9BA5 ;" >Save</button>
+                <button mat-raised-button (click)="close()">Cancel</button> &nbsp;&nbsp;
+                <button mat-raised-button style="background-color: #ED9BA5 ;" (click)="addCustomer()">Save</button>
             </div>
 
         </form>

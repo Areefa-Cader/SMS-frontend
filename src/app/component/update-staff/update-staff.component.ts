@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Route, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -30,12 +31,29 @@ export class UpdateStaffComponent implements OnInit{
   })
 
 constructor(@Inject(MAT_DIALOG_DATA) public data : any, 
+private router:Router,
 private httpClient:HttpClient, 
 private toastr:ToastrService,
-private dialogRef:DialogRef){
-  
-
+private dialogRef: MatDialogRef<UpdateStaffComponent>){
 }
+
+  ngOnInit(): void {
+  //   // Convert the received date string to a Date object
+  // const dobDate = new Date(this.data.dob);
+
+   this.getAllStaff();
+  
+  // Patch the Date object into the form control
+  this.update.patchValue({
+    fullname: this.data.fullname,
+    email: this.data.email,
+    contact_no: this.data.contact_no,
+    role: this.data.role
+  });
+  
+ 
+    
+  }
 
 //get all Staff
 
@@ -47,22 +65,6 @@ getAllStaff(){
 
 
 
-  ngOnInit(): void {
-  //   // Convert the received date string to a Date object
-  // const dobDate = new Date(this.data.dob);
-  
-  // Patch the Date object into the form control
-  this.update.patchValue({
-    fullname: this.data.fullname,
-    email: this.data.email,
-    contact_no: this.data.contact_no,
-    role: this.data.role
-  });
-  
-  this.getAllStaff();
-    
-  }
-
   updateStaff(){
     if(this.update.valid){  
         this.httpClient.put('http://127.0.0.1:8000/api/updateStaff/' + this.data.id , this.update.value).
@@ -70,9 +72,9 @@ getAllStaff(){
           console.log(res);
           if(res.message){
           this.toastr.success('updated successfully');
-          this.getAllStaff();
+          console.log(this.update.value);
           
-          this.dialogRef.close(true);
+          this.dialogRef.close(this.update.value);
           }else{
             this.toastr.error(res.error);
           }

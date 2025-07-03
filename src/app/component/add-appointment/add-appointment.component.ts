@@ -212,10 +212,6 @@ export class AddAppointmentComponent implements OnInit {
   }
   }
 
-  // confirmSelection(select: MatSelect) {
-  //   select.close();
-  //   this.updateServiceDetails(this.secondFormGroup.get('service')?.value);
-  // }
 
   onConfirm(){
     if (this.firstFormGroup.valid && this.secondFormGroup.valid && this.selectedStaff) {
@@ -234,7 +230,9 @@ export class AddAppointmentComponent implements OnInit {
       };
   
       this.httpClient.post('http://127.0.0.1:8000/api/addCustomerDetails', customerData).subscribe(
+        
         (customerRes: any) => {
+          // this.toastr.error('Error creating customer');
           const customerId = customerRes.customer.id;
 
           const selectedService = this.serviceList.find(service => service.service_name === selectedServices);

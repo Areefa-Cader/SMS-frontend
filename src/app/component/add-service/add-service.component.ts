@@ -2,6 +2,7 @@ import { DialogRef } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
@@ -23,7 +24,7 @@ export class AddServiceComponent implements OnInit{
 });
 
   constructor(private httpClient: HttpClient, private router:Router, 
-    private dialogRef:DialogRef<AddServiceComponent>, private toastr: ToastrService){
+    private dialogRef:MatDialogRef<AddServiceComponent>, private toastr: ToastrService){
 
   }
 
@@ -46,7 +47,7 @@ export class AddServiceComponent implements OnInit{
       (res:any)=>{
         console.log(res);
         if(res.message){
-          this.dialogRef.close();
+          this.dialogRef.close(true);
           this.router.navigate(['/service']);
           this.getAllservices();
           this.toastr.success(res.message);
@@ -62,9 +63,12 @@ export class AddServiceComponent implements OnInit{
   }
 
   dialogBoxClose(){
-    this.dialogRef.close();
+    this.dialogRef.close(true);
+    this.getAllservices();
 
   }
+
+  
 
 
 }

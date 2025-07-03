@@ -1,8 +1,9 @@
 import { DialogRef } from '@angular/cdk/dialog';
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit, computed, signal } from '@angular/core';
+import { Component, OnInit, ViewChild, computed, signal } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddServiceComponent } from '../add-service/add-service.component';
+import { ServiceListComponent } from '../service-list/service-list.component';
 
 @Component({
   selector: 'app-service',
@@ -10,6 +11,8 @@ import { AddServiceComponent } from '../add-service/add-service.component';
   styleUrls: ['./service.component.scss']
 })
 export class ServiceComponent implements OnInit{
+    @ViewChild(ServiceListComponent) serviceListComponent!: ServiceListComponent;
+
   
   collapsed = signal(true);
   sidenavwidth = computed(()=>this.collapsed() ? '65px':'200px');
@@ -38,8 +41,8 @@ export class ServiceComponent implements OnInit{
 
    
     dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        this.getAllservices(); // Refresh the service list
+      if (result === true) {
+       this.serviceListComponent.getAllServices();
       }
     });
   }

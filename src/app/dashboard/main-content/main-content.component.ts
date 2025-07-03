@@ -133,17 +133,17 @@ export class MainContentComponent implements OnInit{
       const today = this.datePipe.transform(new Date(), 'yyyy-MM-dd');
   
       const isHighlighted = this.appointmentDates.some(appointment => appointment === fullDate);
-      // console.log(fullDate, isHighlighted);
-      // console.log(this.appointmentDates);
-      // console.log(fullDate);
+      console.log(fullDate, isHighlighted);
+      console.log(this.appointmentDates);
+      console.log(fullDate);
 
-      // if (this.appointmentDates.includes(fullDate!)) {
-      //   if (fullDate! === today!) {
-      //     return 'example-today-date-class';
-      //   } else {
-      //     return 'example-custom-date-class';
-      //   }
-      // }
+      if (this.appointmentDates.includes(fullDate!)) {
+        if (fullDate! === today!) {
+          return 'example-today-date-class';
+        } else {
+          return 'example-custom-date-class';
+        }
+      }
       
       return isHighlighted ? 'example-custom-date-class' : (fullDate === today ? 
         'example-today-date-class' : '');

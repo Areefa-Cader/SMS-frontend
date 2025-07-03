@@ -1,0 +1,87 @@
+  <div style="display:flex; gap: 10px;width:100%;">
+  <mat-form-field appearance="outline">
+    <mat-label> From Date</mat-label>
+    <input matInput [matDatepicker]="fromPicker" [(ngModel)]="fromDate">
+    <mat-datepicker-toggle matSuffix [for]="fromPicker" ></mat-datepicker-toggle>
+    <mat-datepicker #fromPicker></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label> To Date</mat-label>
+    <input matInput [matDatepicker]="toPicker" [(ngModel)]="toDate">
+    <mat-datepicker-toggle matSuffix [for]="toPicker" ></mat-datepicker-toggle>
+    <mat-datepicker #toPicker></mat-datepicker>
+  </mat-form-field>
+
+ <button mat-raised-button style="" (click)="getAllAppointmentReportList()">Reset</button>
+       
+        <span class="example-spacer"></span>
+
+         <button mat-raised-button style="background-color: #ED9BA5; padding:20px;" (click)="filterByDate()">Generate Report</button>
+
+        <!-- <button mat-raised-button class="add-button" style="  background-color: #ED9BA5;">Download PDF</button> -->
+        </div>
+
+
+<mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+     <!-- ID Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Appointment Id</th>
+        <td mat-cell *matCellDef="let element">{{element.id}}</td>
+        <td mat-footer-cell *matFooterCellDef> Total </td>
+      </ng-container>
+  
+      <!-- Customer Name Column -->
+      <ng-container matColumnDef="customer_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Customer Name</th>
+        <td mat-cell *matCellDef="let element">{{element.customer_name}}</td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+
+       <!-- Staff Name Column -->
+      <ng-container matColumnDef="staff_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Staff Name</th>
+        <td mat-cell *matCellDef="let element">{{element.staff_name}}</td>
+      </ng-container>
+  
+      <!-- Service name Column -->
+      <ng-container matColumnDef="service_name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Service Name</th>
+        <td mat-cell *matCellDef="let element">{{element.service_name}}</td>
+
+      </ng-container>
+
+       <!-- Service Amount Column -->
+       <ng-container matColumnDef="service_price">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Service Price</th>
+        <td mat-cell *matCellDef="let element">{{element.service_price}}</td>
+        <td mat-footer-cell *matFooterCellDef>  </td>
+      </ng-container>
+  
+     
+  
+      <!-- Date Column -->
+      <ng-container matColumnDef="date">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
+        <td mat-cell *matCellDef="let element">{{element.date}}</td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  
+      <!-- Row shown when there is no matching data. -->
+      <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+  </div>
+

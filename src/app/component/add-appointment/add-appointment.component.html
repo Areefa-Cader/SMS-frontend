@@ -13,7 +13,7 @@
               <div class="row">
                 <mat-form-field appearance="outline">
                   <mat-label>Mobile</mat-label>
-                  <input matInput formControlName="contact_no" (keyup.enter)="addCustomerDetails()">
+                  <input matInput formControlName="contact_no" (keyup.enter)="addCustomerDetails()"  matTooltip='The contact number must be 10 digits'>
                 </mat-form-field>
               </div>
               <div class="row">
